@@ -101,7 +101,7 @@ const ResponsiveAppBar = props => {
               }}
             >
                 <MenuItem onClick={handleCloseNavMenu}>
-                    <Links to='/'>
+                    <Links to='/naturaldefensestore'>
                         <Typography textAlign="center">Home</Typography>
                     </Links>
                 </MenuItem>
@@ -141,7 +141,7 @@ const ResponsiveAppBar = props => {
             NDS
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent:'space-around' }}>
-                <Links to='/'><NavElements name='Home'></NavElements></Links>
+                <Links to='/naturaldefensestore'><NavElements name='Home'></NavElements></Links>
                 <Links to='/order'><NavElements name='Order Smoothies Online'></NavElements></Links>
                 <Links to='/atomy'><NavElements name='Atomy Products'></NavElements></Links>
                 <Links to='/vitamins'><NavElements name='Vitimans & Suppliments'></NavElements></Links>

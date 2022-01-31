@@ -66,7 +66,7 @@ class App extends Component{
             
             <ResponsiveAppBar currentUser={currentUser}/>
             <Routes>
-              <Route exact path='/' element={<Section currentUser={currentUser}/>} />
+              <Route exact path='/naturaldefensestore' element={<Section currentUser={currentUser}/>} />
               <Route exact path='/atomy' element={<Atomy currentUser={currentUser}/>}/>
               <Route exact path='/vitamins' element={<Vitamins currentUser={currentUser}/>}/>
               <Route exact path='/order' element={<Order currentUser={currentUser}/>}/>
