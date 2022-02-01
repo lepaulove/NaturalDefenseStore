@@ -42,8 +42,8 @@ export default function Section(props){
         console.log({currentUser}),
         <Box sx={{padding:0, margin:0}}>
             <Section>
-                {currentUser ? `Hello, ${currentUser.multiFactor.user.displayName}!` : 'FRESH 100% NATURAL SMOOTHIES'}
-                
+                {currentUser ? `Hello, ${currentUser.displayName}!` : 'FRESH 100% NATURAL SMOOTHIES'}
+                {/* 'FRESH 100% NATURAL SMOOTHIES' */}
             </Section>
             <Section2/>
             <Section3/>

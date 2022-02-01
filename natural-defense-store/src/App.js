@@ -14,7 +14,7 @@ import FullWidthTabs from './Components/Navigation2';
 import Login from './pages/Login';
 import Registration from './pages/Registration';
 import EmailLogin from './pages/EmailLogin';
-import {auth} from '../src/Firebase/utils'
+import { auth, handleUserProfile } from '../src/Firebase/utils'
 import reactDom from 'react-dom';
 import { render } from '@testing-library/react';
 
@@ -34,18 +34,20 @@ class App extends Component{
   authListener = null
 
   componentDidMount(){
-    this.authListener = auth.onAuthStateChanged(userAuth => {
-      // console.log(userAuth)
-      if(!userAuth){
-        this.setState({
-          ...initialState
-          
-        }) 
-        console.log(userAuth)
+    this.authListener = auth.onAuthStateChanged(async userAuth => {
+      if(userAuth){
+        const userRef = await handleUserProfile(userAuth)
+        userRef.onSnapshot(snapshot =>{
+          this.setState({
+            currentUser: {
+              id: snapshot.id,
+              ...snapshot.data()
+            }
+          })
+        })
       }
-
       this.setState({
-        currentUser: userAuth
+        ...initialState
       })
     })
   }
@@ -59,7 +61,7 @@ class App extends Component{
     const { currentUser } = this.state
     return(
       //<StylesProvider injectFirst>
-        <div style={{paddingBottom:'300px',background:'#A0F1F4'}}>
+        <div style={{paddingBottom:'300px',background:'#A0F1F4', height:'100%'}}>
           <Banner/>
           {/* <FullWidthTabs/> */}
           <Router>
