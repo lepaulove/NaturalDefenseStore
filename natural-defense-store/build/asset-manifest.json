@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/NaturalDefenseStore/static/css/main.28d7d91f.css",
-    "main.js": "/NaturalDefenseStore/static/js/main.6246bf70.js",
+    "main.css": "/NaturalDefenseStore/static/css/main.d7ea1367.css",
+    "main.js": "/NaturalDefenseStore/static/js/main.ebaebbe3.js",
     "static/media/banner-image.png": "/NaturalDefenseStore/static/media/banner-image.ccce0de7128e1724a399.png",
     "static/media/mango.jpg": "/NaturalDefenseStore/static/media/mango.c723dca3226f1c8febe5.jpg",
     "static/media/pineapple.jpg": "/NaturalDefenseStore/static/media/pineapple.69580728a963cf443660.jpg",
@@ -11,11 +11,11 @@
     "static/media/green-smoothie.jpg": "/NaturalDefenseStore/static/media/green-smoothie.bf290be8a7d8870b2672.jpg",
     "static/media/mango-smoothie.jpg": "/NaturalDefenseStore/static/media/mango-smoothie.4f0b281baa979faff36c.jpg",
     "index.html": "/NaturalDefenseStore/index.html",
-    "main.28d7d91f.css.map": "/NaturalDefenseStore/static/css/main.28d7d91f.css.map",
-    "main.6246bf70.js.map": "/NaturalDefenseStore/static/js/main.6246bf70.js.map"
+    "main.d7ea1367.css.map": "/NaturalDefenseStore/static/css/main.d7ea1367.css.map",
+    "main.ebaebbe3.js.map": "/NaturalDefenseStore/static/js/main.ebaebbe3.js.map"
   },
   "entrypoints": [
-    "static/css/main.28d7d91f.css",
-    "static/js/main.6246bf70.js"
+    "static/css/main.d7ea1367.css",
+    "static/js/main.ebaebbe3.js"
   ]
 }

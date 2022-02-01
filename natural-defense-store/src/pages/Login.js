@@ -92,30 +92,32 @@ const Login = props => {
 
     return(
         !currentUser ? 
-        <LoginContainer sx={bg} container sx={{margin: '2rem auto'}}>
-            <Grid item sx={{alignSelf:'center', marginTop: 0}}sm={12}>
-                <h1>LOGIN</h1>
-            </Grid>
-            <Grid item sm={12}>
-                <Button  onClick={(signInWithGoogle)}>
-                    Login with Google
-                </Button>
-            </Grid>
-            <Grid item sm={12}>
-                <Link style={{textDecoration:'none', alignSelf:'center'}} to='/email-login'>
-                    <Button>
-                        Login with Email
+        <Paper elevation={20} sx={{maxWidth:'fit-content', margin:'2rem auto'}}>
+            <LoginContainer sx={bg} container sx={{margin: '2rem auto'}}>
+                <Grid item sx={{alignSelf:'center', marginTop: 0}}sm={12}>
+                    <h1>LOGIN</h1>
+                </Grid>
+                <Grid item sm={12}>
+                    <Button  onClick={(signInWithGoogle)}>
+                        Login with Google
                     </Button>
-                </Link>
-            </Grid>
-            <Grid>
-                <Link style={{textDecoration:'none', alignSelf:'center'}} to='/register'>
-                    <Button>
-                        Register
-                    </Button>
-                </Link>
-            </Grid>
-        </LoginContainer> : <Outlet />
+                </Grid>
+                <Grid item sm={12}>
+                    <Link style={{textDecoration:'none', alignSelf:'center'}} to='/email-login'>
+                        <Button>
+                            Login with Email
+                        </Button>
+                    </Link>
+                </Grid>
+                <Grid>
+                    <Link style={{textDecoration:'none', alignSelf:'center'}} to='/register'>
+                        <Button>
+                            Register
+                        </Button>
+                    </Link>
+                </Grid>
+            </LoginContainer>
+        </Paper> : <Outlet />
     )
 }
 
