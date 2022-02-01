@@ -1,19 +1,38 @@
 import React, {useState} from "react";
-import { FormControl, useFormControl, InputLabel, Input, FormHelperText, TextField, Button, Paper } from "@mui/material";
+import { FormControl, useFormControl, InputLabel, Input, FormHelperText, TextField, Button, Paper, useMediaQuery } from "@mui/material";
 import { Box, Grid } from "@mui/material";
 import { styled } from "@mui/styles";
-import { display } from "@mui/system";
+import { display, maxWidth } from "@mui/system";
 import { Link, Outlet } from "react-router-dom";
 import { signInWithGoogle, signOut, auth } from '../Firebase/utils'
+import { useTheme } from "styled-components";
 
 const LoginContainer = styled(Grid)({
     display:'flex', 
     flexDirection:'column',
     justifyContent:'center',
-    padding:'2rem',
+    padding:'0 2rem 2rem 2rem',
     background:'#03C417',
     color:'#ffffff',
+    width: 'fit-content',
+    '& Button':{
+        background:'darkgreen',
+        marginTop: '1rem',
+        color: 'white',
+        width: '40rem',
+        maxWidth: '15rem',
+        alignSelf: 'center',
+        '&:hover':{
+            background: 'white',
+            color: 'darkgreen'
+        }
+    }
 })
+
+function MyComponent(){
+    const theme = useTheme();
+    const matches = useMediaQuery(theme.breakpoints.up('sm'))
+}
 
 const Login = props => {
 
@@ -37,9 +56,10 @@ const Login = props => {
 
     const bg = {
         background:'darkgreen',
-        marginTop: 1,
+        margin: 'rem auto',
         color: 'white',
-        width: '100%',
+        width: '40rem',
+        maxWidth: '15rem',
         alignSelf: 'center',
         '&:hover':{
             background: 'white',
@@ -72,23 +92,25 @@ const Login = props => {
 
     return(
         !currentUser ? 
-        <LoginContainer container sx={{margin: '2rem auto'}}>
-            
+        <LoginContainer sx={bg} container sx={{margin: '2rem auto'}}>
+            <Grid item sx={{alignSelf:'center', marginTop: 0}}sm={12}>
+                <h1>LOGIN</h1>
+            </Grid>
             <Grid item sm={12}>
-                <Button sx={bg} onClick={(signInWithGoogle)}>
+                <Button  onClick={(signInWithGoogle)}>
                     Login with Google
                 </Button>
             </Grid>
             <Grid item sm={12}>
                 <Link style={{textDecoration:'none', alignSelf:'center'}} to='/email-login'>
-                    <Button sx={bg}>
+                    <Button>
                         Login with Email
                     </Button>
                 </Link>
             </Grid>
             <Grid>
                 <Link style={{textDecoration:'none', alignSelf:'center'}} to='/register'>
-                    <Button sx={bg}>
+                    <Button>
                         Register
                     </Button>
                 </Link>

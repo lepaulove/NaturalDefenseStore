@@ -25,7 +25,7 @@ export default function Section(props){
         }
 
         @media(min-width: 601px){
-            background-color: ;
+            background-color: white;
             /* outline-color: grey;
             outline-width: 20px; 
             outline-style: solid; */
