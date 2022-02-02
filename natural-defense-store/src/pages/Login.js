@@ -92,20 +92,20 @@ const Login = props => {
 
     return(
         !currentUser ? 
-        <Paper elevation={20} sx={{maxWidth:'fit-content', margin:'2rem auto'}}>
+        <Paper elevation={5} sx={{maxWidth:'fit-content', margin:'2rem auto'}}>
             <LoginContainer sx={bg} container sx={{margin: '2rem auto'}}>
                 <Grid item sx={{alignSelf:'center', marginTop: 0}}sm={12}>
                     <h1>LOGIN</h1>
                 </Grid>
                 <Grid item sm={12}>
                     <Button  onClick={(signInWithGoogle)}>
-                        Login with Google
+                        Sign-In with Google
                     </Button>
                 </Grid>
                 <Grid item sm={12}>
                     <Link style={{textDecoration:'none', alignSelf:'center'}} to='/email-login'>
                         <Button>
-                            Login with Email
+                            Sign-In with Email
                         </Button>
                     </Link>
                 </Grid>
