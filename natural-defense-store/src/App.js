@@ -76,7 +76,9 @@ class App extends Component{
                 <Route exact path='' element={<Section currentUser={currentUser}/>}/>
               </Route>
               <Route exact path='/email-login' element={<EmailLogin currentUser={currentUser}/>}/>
-              <Route exact path='/register' element={<Registration/>}/>
+              <Route exact path='/register' element={<Registration/>}>
+                <Route exact path='' element={<Section currentUser={currentUser}/>}/>
+              </Route>
             </Routes>
           </Router>
       </div>

@@ -58,7 +58,7 @@ const Login = props => {
         background:'darkgreen',
         margin: 'rem auto',
         color: 'white',
-        width: '40rem',
+        width: '60rem',
         maxWidth: '15rem',
         alignSelf: 'center',
         '&:hover':{

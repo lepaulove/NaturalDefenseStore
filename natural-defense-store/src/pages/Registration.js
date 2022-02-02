@@ -1,10 +1,10 @@
 import React, {useState} from "react";
-import { FormControl, useFormControl, InputLabel, Input, FormHelperText, TextField, Button, Paper } from "@mui/material";
+import { FormControl, useFormControl, InputLabel, Input, FormHelperText, TextField, Button, Paper, Alert } from "@mui/material";
 import { Box, Grid } from "@mui/material";
 import { styled } from "@mui/styles";
 import { display } from "@mui/system";
 import { Link, Outlet } from "react-router-dom";
-import { signInWithGoogle, signOut, auth } from '../Firebase/utils'
+import { auth, handleUserProfile} from '../Firebase/utils'
 
 const LoginContainer = styled(Grid)({
     display:'flex', 
@@ -19,12 +19,30 @@ const LoginContainer = styled(Grid)({
 
 const Registration = props => {
 
+    const [displayName = '', setDisplayName] = useState()
     const [email = '', setEmail] = useState()
     const [password = '', setPassword] = useState()
+    const [confirmPassword = '', setConfirmPassword] = useState()
     const [emailColor = 'white', setEmailColor] = useState()
     const [passwordColor = 'white', setPasswordColor] = useState()
+    const [errors, setErrors ] = useState([])
+    const [redirectUser = false, setRedirectUser] = useState()
     const { currentUser } = props
     
+    
+    const handleChange = (event, field) =>{
+        if(field === 'name'){
+            let val = event.target.value
+            setDisplayName(val)
+        }
+    }
+
+    const getDisplayName = event =>{
+        let val = event.target.value
+        setDisplayName(val)
+        // setPasswordColor('white');
+    }
+
     const getEmail = event =>{
         let val = event.target.value
         setEmail(val)
@@ -35,6 +53,12 @@ const Registration = props => {
         let val = event.target.value
         setPassword(val)
         setEmailColor('white')
+    }
+
+    const getConfirmPassword = event =>{
+        let val = event.target.value
+        setConfirmPassword(val)
+        // setEmailColor('white')
     }
 
     const bg = {
@@ -57,19 +81,31 @@ const Registration = props => {
         }
     }
     
-    const formSubmit = () =>{ 
-            alert('Sign In Successful')   
+    const formSubmit = async event =>{ 
+        event.preventDefault()
+        if(password !== confirmPassword){
+            alert('Password Do Not Match')
+            return
+        }  
+
+        try{
+            const { user } = await auth.createUserWithEmailAndPassword(email, password)
+            await handleUserProfile(user, { displayName })
+            setRedirectUser(true)
+        }catch(err){
+            console.log(err)
+        }
     }
 
     return(
-        !currentUser ? 
+        !redirectUser ? 
         <LoginContainer container sx={{margin: '2rem auto'}} gap={1}>
             <Grid item>
                 <FormControl sx={textFieldStyle}>
                     <InputLabel htmlFor="my-input" sx={{color:emailColor}} >
                         {email ? '' : 'Name'}
                     </InputLabel>
-                    <TextField id="email" aria-describedby="my-helper-text" value={email} onChange={getEmail}/>
+                    <TextField id="name" aria-describedby="my-helper-text" value={displayName} onChange={getDisplayName}/>
                     {/* <FormHelperText id="my-helper-text">
                         We'll never share your email.
                     </FormHelperText> */}
@@ -99,14 +135,29 @@ const Registration = props => {
                     <InputLabel htmlFor="my-input" sx={{color:passwordColor}}>
                         {password ? '' : 'Confirm Password'}
                     </InputLabel>
-                    <TextField id="password" aria-describedby="my-helper-text" value={password} onChange={getPassword}/>
+                    <TextField id="confirm" aria-describedby="my-helper-text" value={confirmPassword} onChange={getConfirmPassword}/>
                 </FormControl>
             </Grid>
             <Grid item sm={12}>
                 <Button sx={bg} onClick={(formSubmit)}>
                     Submit
                 </Button>
+                <div>
+                    <p>Name: {displayName}</p>
+                    <p>Email: {email}</p>
+                    <p>Password: {password}</p>
+                    <p>Confirm Password: {confirmPassword}</p>
+                </div>
             </Grid>
+            {
+                errors.length >= 0 && (
+                    errors.map((error, index) => {
+                        <li key={index}>
+                            {error}
+                        </li>
+                    })
+                )
+            }
             {/* <Link style={{textDecoration:'none', alignSelf:'center'}} to='/register'>
                 <Button sx={bg}>
                     {currentUser ? 'Logout' : 'Register'}
