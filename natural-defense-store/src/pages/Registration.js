@@ -142,22 +142,7 @@ const Registration = props => {
                 <Button sx={bg} onClick={(formSubmit)}>
                     Submit
                 </Button>
-                <div>
-                    <p>Name: {displayName}</p>
-                    <p>Email: {email}</p>
-                    <p>Password: {password}</p>
-                    <p>Confirm Password: {confirmPassword}</p>
-                </div>
             </Grid>
-            {
-                errors.length >= 0 && (
-                    errors.map((error, index) => {
-                        <li key={index}>
-                            {error}
-                        </li>
-                    })
-                )
-            }
             {/* <Link style={{textDecoration:'none', alignSelf:'center'}} to='/register'>
                 <Button sx={bg}>
                     {currentUser ? 'Logout' : 'Register'}
