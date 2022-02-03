@@ -57,8 +57,12 @@ const EmailLogin = props => {
         }
     }
     
-    const formSubmit = () =>{ 
-            alert('Sign In Successful')   
+    const formSubmit = async event =>{ 
+        try{
+            await auth.signInWithEmailAndPassword(email, password)
+        }catch(err){
+            console.log(err)
+        }  
     }
 
     return(
