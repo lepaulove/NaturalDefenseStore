@@ -103,9 +103,9 @@ const Registration = props => {
             <Grid item>
                 <FormControl sx={textFieldStyle}>
                     <InputLabel htmlFor="my-input" sx={{color:emailColor}} >
-                        {email ? '' : 'Name'}
+                        {displayName ? '' : 'Name'}
                     </InputLabel>
-                    <TextField id="name" aria-describedby="my-helper-text" value={displayName} onChange={getDisplayName}/>
+                    <TextField type='text' id="name" aria-describedby="my-helper-text" value={displayName} onChange={getDisplayName}/>
                     {/* <FormHelperText id="my-helper-text">
                         We'll never share your email.
                     </FormHelperText> */}
@@ -116,7 +116,7 @@ const Registration = props => {
                     <InputLabel htmlFor="my-input" sx={{color:emailColor}} >
                         {email ? '' : 'Email'}
                     </InputLabel>
-                    <TextField id="email" aria-describedby="my-helper-text" value={email} onChange={getEmail}/>
+                    <TextField type='email' id="email" aria-describedby="my-helper-text" value={email} onChange={getEmail}/>
                     {/* <FormHelperText id="my-helper-text">
                         We'll never share your email.
                     </FormHelperText> */}
@@ -127,15 +127,15 @@ const Registration = props => {
                     <InputLabel htmlFor="my-input" sx={{color:passwordColor}}>
                         {password ? '' : 'Password'}
                     </InputLabel>
-                    <TextField id="password" aria-describedby="my-helper-text" value={password} onChange={getPassword}/>
+                    <TextField type='password' id="password" aria-describedby="my-helper-text" value={password} onChange={getPassword}/>
                 </FormControl>
             </Grid>
             <Grid item>
                 <FormControl sx={textFieldStyle}>
                     <InputLabel htmlFor="my-input" sx={{color:passwordColor}}>
-                        {password ? '' : 'Confirm Password'}
+                        {confirmPassword ? '' : 'Confirm Password'}
                     </InputLabel>
-                    <TextField id="confirm" aria-describedby="my-helper-text" value={confirmPassword} onChange={getConfirmPassword}/>
+                    <TextField type='password' id="confirm" aria-describedby="my-helper-text" value={confirmPassword} onChange={getConfirmPassword}/>
                 </FormControl>
             </Grid>
             <Grid item sm={12}>

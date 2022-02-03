@@ -73,7 +73,7 @@ const EmailLogin = props => {
                     <InputLabel htmlFor="my-input" sx={{color:emailColor}} >
                         {email ? '' : 'Email'}
                     </InputLabel>
-                    <TextField id="email" aria-describedby="my-helper-text" value={email} onChange={getEmail}/>
+                    <TextField type='email' id="email" aria-describedby="my-helper-text" value={email} onChange={getEmail}/>
                     {/* <FormHelperText id="my-helper-text">
                         We'll never share your email.
                     </FormHelperText> */}
@@ -84,7 +84,7 @@ const EmailLogin = props => {
                     <InputLabel htmlFor="my-input" sx={{color:passwordColor}}>
                         {password ? '' : 'Password'}
                     </InputLabel>
-                    <TextField id="password" aria-describedby="my-helper-text" value={password} onChange={getPassword}/>
+                    <TextField type='password' id="password" aria-describedby="my-helper-text" value={password} onChange={getPassword}/>
                 </FormControl>
             </Grid>
             <Grid item sm={12}>
