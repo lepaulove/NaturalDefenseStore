@@ -1,22 +1,17 @@
 import React, {Component} from 'react';
 import './App.css';
 import Banner from './Banner';
-import styled from 'styled-components'
 import Section from './Components/Section';
-import { StylesProvider } from '@mui/styles';
-import Grid from './Components/Grid';
 import { BrowserRouter as Router, Routes, Route, Redirect } from 'react-router-dom'
 import Atomy from './pages/Atomy';
 import Vitamins from './pages/Vitamins'
 import Order from './pages/Order';
 import ResponsiveAppBar from './Components/Navigation';
-import FullWidthTabs from './Components/Navigation2';
 import Login from './pages/Login';
 import Registration from './pages/Registration';
 import EmailLogin from './pages/EmailLogin';
 import { auth, handleUserProfile } from '../src/Firebase/utils'
-import reactDom from 'react-dom';
-import { render } from '@testing-library/react';
+import ForgotPassword from './pages/ForgotPaassword';
 
 const initialState = {
   currentUser: null
@@ -79,6 +74,7 @@ class App extends Component{
               <Route exact path='/register' element={<Registration/>}>
                 <Route exact path='' element={<Section currentUser={currentUser}/>}/>
               </Route>
+              <Route exact path ='/password-reset' element={<ForgotPassword currentUser={currentUser}/>}/>
             </Routes>
           </Router>
       </div>

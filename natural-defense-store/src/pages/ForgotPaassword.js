@@ -3,8 +3,9 @@ import { FormControl, useFormControl, InputLabel, Input, FormHelperText, TextFie
 import { Box, Grid } from "@mui/material";
 import { styled } from "@mui/styles";
 import { display } from "@mui/system";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { signInWithGoogle, signOut, auth } from '../Firebase/utils'
+
 
 const LoginContainer = styled(Grid)({
     display:'flex', 
@@ -12,29 +13,22 @@ const LoginContainer = styled(Grid)({
     justifyContent:'center',
     // width: '50vw',
     margin:'2rem auto',
-    padding:'2rem',
+    padding:'0 2rem 2rem 2rem',
     background:'#03C417',
     color:'#ffffff',
 })
 
-const EmailLogin = props => {
+const ForgotPassword = props => {
 
     const [email = '', setEmail] = useState()
-    const [password = '', setPassword] = useState()
     const [emailColor = 'white', setEmailColor] = useState()
-    const [passwordColor = 'white', setPasswordColor] = useState()
+    let navigate = useNavigate()
     const { currentUser } = props
     
     const getEmail = event =>{
         let val = event.target.value
         setEmail(val)
-        setPasswordColor('white');
-    }
-
-    const getPassword = event =>{
-        let val = event.target.value
-        setPassword(val)
-        setEmailColor('white')
+        setEmailColor('white');
     }
 
     const bg = {
@@ -58,8 +52,17 @@ const EmailLogin = props => {
     }
     
     const formSubmit = async event =>{ 
+        
         try{
-            await auth.signInWithEmailAndPassword(email, password)
+            const config = {
+                url: 'http://localhost:3000/email-login'
+            }
+            await  auth.sendPasswordResetEmail(email, config).then(() => {
+                navigate('/email-login')
+            }).catch(() => {
+
+            })
+            // await auth.signInWithEmailAndPassword(email, password)
         }catch(err){
             console.log(err)
         }  
@@ -68,6 +71,9 @@ const EmailLogin = props => {
     return(
         !currentUser ? 
         <LoginContainer container gap={1}>
+            <Grid item sx={{alignSelf:'center', marginTop: 0}}sm={12}>
+                <h1>Reset Password</h1>
+            </Grid>
             <Grid item>
                 <FormControl sx={textFieldStyle}>
                     <InputLabel htmlFor="my-input" sx={{color:emailColor}} >
@@ -79,29 +85,13 @@ const EmailLogin = props => {
                     </FormHelperText> */}
                 </FormControl>
             </Grid>
-            <Grid item>
-                <FormControl sx={textFieldStyle}>
-                    <InputLabel htmlFor="my-input" sx={{color:passwordColor}}>
-                        {password ? '' : 'Password'}
-                    </InputLabel>
-                    <TextField type='password' id="password" aria-describedby="my-helper-text" value={password} onChange={getPassword}/>
-                </FormControl>
-            </Grid>
             <Grid item sm={12}>
                 <Button sx={bg} onClick={(formSubmit)}>
-                    Login
+                    Send Link
                 </Button>
             </Grid>
-            <Link to='/password-reset'>
-                Forgot Password?
-            </Link>
-            {/* <Link style={{textDecoration:'none', alignSelf:'center'}} to='/register'>
-                <Button sx={bg}>
-                    {currentUser ? 'Logout' : 'Register'}
-                </Button>
-            </Link> */}
         </LoginContainer> : <Outlet />
     )
 }
 
-export default EmailLogin
+export default ForgotPassword

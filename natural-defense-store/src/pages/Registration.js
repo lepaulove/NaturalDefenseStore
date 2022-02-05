@@ -29,13 +29,6 @@ const Registration = props => {
     const [redirectUser = false, setRedirectUser] = useState()
     const { currentUser } = props
     
-    
-    const handleChange = (event, field) =>{
-        if(field === 'name'){
-            let val = event.target.value
-            setDisplayName(val)
-        }
-    }
 
     const getDisplayName = event =>{
         let val = event.target.value

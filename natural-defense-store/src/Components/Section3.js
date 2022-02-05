@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid } from "@mui/material";
-import { Box, flexbox } from "@mui/system";
+import { Box } from "@mui/system";
 import mango from '../images/pineapple.jpg'
 import green from '../images/banana.jpg'
 import strawberry from '../images/mango.jpg'

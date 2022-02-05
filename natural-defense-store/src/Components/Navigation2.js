@@ -1,17 +1,14 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Section from './Section';
 import Atomy from '../pages/Atomy'
 import Vitamins from '../pages/Vitamins'
 import Order from '../pages/Order'
-// import { Login } from '@mui/icons-material';
 import Login from '../pages/Login'
 
 function TabPanel(props) {

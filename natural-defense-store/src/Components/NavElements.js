@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Button from "@mui/material/Button";
-import { StylesProvider } from '@mui/styles';
-import { Link } from "react-router-dom";
 import { signOut } from "../Firebase/utils";
 
     const NavButton = styled(Button)({
