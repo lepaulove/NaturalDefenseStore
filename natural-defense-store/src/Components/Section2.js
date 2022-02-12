@@ -17,7 +17,7 @@ export default function Section2(){
 
     return(
         <>
-            <Grid container sx={{display:{xs:'none', md:'flex'}, justifyContent:'space-around', backgroundColor:'#F0F1F4', padding:'2rem'}}>
+        <Grid container sx={{display:{xs:'none', md:'flex'}, justifyContent:'space-around', backgroundColor:'#F0F1F4', padding:'2rem'}}>
             <Grid item>
                 <Img src={mango}/>
             </Grid>

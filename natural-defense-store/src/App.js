@@ -12,38 +12,47 @@ import Registration from './pages/Registration';
 import EmailLogin from './pages/EmailLogin';
 import { auth, handleUserProfile } from '../src/Firebase/utils'
 import ForgotPassword from './pages/ForgotPaassword';
+import { connect } from 'react-redux'
+import { setCurrentUser } from './Redux/User/user.actions';
 
-const initialState = {
-  currentUser: null
-}
+// const initialState = {
+//   currentUser: null
+// }
+
+// const mapStateToProps = ({user}) => ({
+//   currentUser: user.currentUser
+// })
 
 class App extends Component{
 
-  constructor(props){
-    super(props)
-    this.state = {
-      ...initialState
-    }
-  }
+  // constructor(props){
+  //   super(props)
+  //   this.state = {
+  //     ...initialState
+  //   }
+  // }
 
   authListener = null
 
   componentDidMount(){
+
+    const { currentUser } = this.props
+
     this.authListener = auth.onAuthStateChanged(async userAuth => {
       if(userAuth){
         const userRef = await handleUserProfile(userAuth)
         userRef.onSnapshot(snapshot =>{
-          this.setState({
-            currentUser: {
+          this.props.setCurrentUser({
+            // currentUser: {
               id: snapshot.id,
               ...snapshot.data()
-            }
+            // }
           })
         })
       }
-      this.setState({
-        ...initialState
-      })
+      this.props.setCurrentUser(userAuth)//({
+      //   ...initialState
+      // })
     })
   }
 
@@ -53,7 +62,7 @@ class App extends Component{
 
   render(){
 
-    const { currentUser } = this.state
+    const { currentUser } = this.props
     return(
       //<StylesProvider injectFirst>
         <div style={{paddingBottom:'300px',background:'#A0F1F4', height:'100%'}}>
@@ -78,7 +87,6 @@ class App extends Component{
             </Routes>
           </Router>
       </div>
-      // {/* </StylesProvider> */}
     )}
   }
 // function App() {
@@ -102,4 +110,12 @@ class App extends Component{
 //   );
 // }
 
-export default App;
+const mapStateToProps = ({user}) => ({
+  currentUser: user.currentUser
+})
+
+const mapDispatchToProps = dispatch => ({
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
