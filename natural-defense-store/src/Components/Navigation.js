@@ -96,35 +96,30 @@ const ResponsiveAppBar = props => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-                <MenuItem onClick={handleCloseNavMenu}>
-                    <Links to='/naturaldefensestore'>
-                        <Typography textAlign="center">Home</Typography>
-                    </Links>
-                </MenuItem>
-                <MenuItem onClick={handleCloseNavMenu}>
-                    <Links to='/order'>
-                        <Typography textAlign="center">Order Smoothie Onlne</Typography>
-                    </Links>
-                </MenuItem>
-                <MenuItem onClick={handleCloseNavMenu}>
-                    <Links to='/atomy'>
-                        <Typography textAlign="center">Atomy Products</Typography>
-                    </Links>
-                </MenuItem>
-                <MenuItem onClick={handleCloseNavMenu}>
-                    <Links to='/vitamins'>
-                        <Typography textAlign="center">Vitamins & Suppliments</Typography>
-                    </Links>
-                </MenuItem>
+                <Links to='/naturaldefensestore'>
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">Home</Typography>
+                  </MenuItem>
+                </Links>
+                <Links to='/order'>
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">Order Smoothie Onlne</Typography>
+                  </MenuItem>
+                </Links>
+                <Links to='/atomy'>
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">Atomy Products</Typography>
+                  </MenuItem>
+                </Links>
+                <Links to='/vitamins'>
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">Vitamins & Suppliments</Typography>
+                  </MenuItem>
+                </Links>
                 <MenuItem onClick={handleLogout}>
                   {currentUser ? <Typography textAlign="center">Logout</Typography> : 
                   <Links to='/login'><Typography>Login</Typography></Links>}
-                </MenuItem>
-              {/* {pages.map((page) => (
-                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page.name}</Typography>
-                </MenuItem>
-              ))} */}
+                </MenuItem> 
             </Menu>
           </Box>
           <Typography

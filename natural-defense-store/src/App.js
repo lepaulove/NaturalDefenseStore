@@ -15,22 +15,7 @@ import ForgotPassword from './pages/ForgotPaassword';
 import { connect } from 'react-redux'
 import { setCurrentUser } from './Redux/User/user.actions';
 
-// const initialState = {
-//   currentUser: null
-// }
-
-// const mapStateToProps = ({user}) => ({
-//   currentUser: user.currentUser
-// })
-
 class App extends Component{
-
-  // constructor(props){
-  //   super(props)
-  //   this.state = {
-  //     ...initialState
-  //   }
-  // }
 
   authListener = null
 
@@ -43,16 +28,12 @@ class App extends Component{
         const userRef = await handleUserProfile(userAuth)
         userRef.onSnapshot(snapshot =>{
           this.props.setCurrentUser({
-            // currentUser: {
               id: snapshot.id,
               ...snapshot.data()
-            // }
           })
         })
       }
-      this.props.setCurrentUser(userAuth)//({
-      //   ...initialState
-      // })
+      this.props.setCurrentUser(userAuth)
     })
   }
 
@@ -89,26 +70,6 @@ class App extends Component{
       </div>
     )}
   }
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
 
 const mapStateToProps = ({user}) => ({
   currentUser: user.currentUser
