@@ -7,7 +7,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Order from '../Components/ProductList'
+import ProductList from '../Components/ProductList';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -80,11 +80,11 @@ export default function FullWidthTabs() {
         index={value}
         onChangeIndex={handleChangeIndex}
       >
-        <TabPanel value={value} index={0} dir={theme.direction}>
-          <Order />
+        <TabPanel value={value} index={0} dir={theme.direction} sx={{display:'flex'}}>
+          <ProductList />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <Order />
+          <ProductList />
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
           Immune Defense

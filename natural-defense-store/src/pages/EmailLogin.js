@@ -19,22 +19,25 @@ const LoginContainer = styled(Grid)({
 
 const EmailLogin = props => {
 
-    const [email = '', setEmail] = useState()
-    const [password = '', setPassword] = useState()
-    const [emailColor = 'white', setEmailColor] = useState()
-    const [passwordColor = 'white', setPasswordColor] = useState()
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [emailColor, setEmailColor] = useState('white')
+    const [passwordColor, setPasswordColor] = useState('white')
+    const [error, setError] = useState(false)
     const { currentUser } = props
     
     const getEmail = event =>{
         let val = event.target.value
         setEmail(val)
         setPasswordColor('white');
+        setError(false)
     }
 
     const getPassword = event =>{
         let val = event.target.value
         setPassword(val)
         setEmailColor('white')
+        setError(false)
     }
 
     const bg = {
@@ -61,7 +64,7 @@ const EmailLogin = props => {
         try{
             await auth.signInWithEmailAndPassword(email, password)
         }catch(err){
-            console.log(err)
+            setError(true)
         }  
     }
 
@@ -95,6 +98,7 @@ const EmailLogin = props => {
             <Link to='/password-reset'>
                 Forgot Password?
             </Link>
+            {error ? <p>Incorrect Email or Password</p> : null}
             {/* <Link style={{textDecoration:'none', alignSelf:'center'}} to='/register'>
                 <Button sx={bg}>
                     {currentUser ? 'Logout' : 'Register'}

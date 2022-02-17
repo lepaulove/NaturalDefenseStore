@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 import Button from "@mui/material/Button";
 import { signOut } from "../Firebase/utils";
+import { useNavigate } from 'react-router-dom'
 
     const NavButton = styled(Button)({
         '&&':{
@@ -24,6 +25,11 @@ import { signOut } from "../Firebase/utils";
 
 export default function NavElements(props) {
 
+    const navigate = useNavigate()
+    // useEffect(() => {
+    //        return navigate("/");
+    //  },[props.currentUser]);
+
     const clickEvent = () => {
         // if (props.name == 'Logout'){
             signOut()
@@ -31,6 +37,6 @@ export default function NavElements(props) {
         // }
     }
     return (
-        <NavButton onClick={() => {props.name == 'Logout' ? signOut() : console.log('LogIn')}}>{props.name}</NavButton>
+        <NavButton onClick={() => {props.name == 'My Account' ? navigate('/my-account') : console.log('LogIn')}}>{props.name}</NavButton>
     );
 }

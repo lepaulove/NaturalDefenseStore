@@ -8,7 +8,7 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
-import {Link} from 'react-router-dom'
+import {Link, Navigate, useNavigate} from 'react-router-dom'
 import NavElements from './NavElements'
 import { styled } from '@mui/system';
 import { signOut } from '../Firebase/utils';
@@ -19,6 +19,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const ResponsiveAppBar = props => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const navigate = useNavigate()
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -31,8 +32,8 @@ const ResponsiveAppBar = props => {
     setAnchorElNav(null);
   };
 
-  const handleLogout = () => {
-    signOut()
+  const handleRoute = () => {
+    navigate('/my-account')
     handleCloseNavMenu()
   };
 
@@ -116,8 +117,8 @@ const ResponsiveAppBar = props => {
                     <Typography textAlign="center">Vitamins & Suppliments</Typography>
                   </MenuItem>
                 </Links>
-                <MenuItem onClick={handleLogout}>
-                  {currentUser ? <Typography textAlign="center">Logout</Typography> : 
+                <MenuItem onClick={handleRoute}>
+                  {currentUser ? <Typography textAlign="center">My Account</Typography> : 
                   <Links to='/login'><Typography>Login</Typography></Links>}
                 </MenuItem> 
             </Menu>
@@ -136,7 +137,7 @@ const ResponsiveAppBar = props => {
                 <Links to='/order'><NavElements name='Order Smoothies Online'></NavElements></Links>
                 <Links to='/atomy'><NavElements name='Atomy Products'></NavElements></Links>
                 <Links to='/vitamins'><NavElements name='Vitimans & Suppliments'></NavElements></Links>
-                {currentUser ? <NavElements name='Logout'></NavElements> : 
+                {currentUser ? <NavElements name='My Account'></NavElements> : 
                 <Links to='/login'><NavElements name='Login'></NavElements></Links>}
 
             {/* {pages.map((page) => (

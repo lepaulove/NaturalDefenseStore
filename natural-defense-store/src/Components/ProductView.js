@@ -10,7 +10,7 @@ import ProductOptions from "./ProductOptions";
 
 export default function ProductView(props){
     return(
-        <Grid item md={2} xs={6} sx={{display:'flex', justifyContent:'center'}}>
+        <Grid item md={4} xs={6} sx={{alignSelf:'center'}}>
             <Paper sx={{}} elevation={5} sx={{}}>
                 <Box>
                     <Image src={green}/>

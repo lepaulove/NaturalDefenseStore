@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import Banner from './Banner';
 import Section from './Components/Section';
@@ -14,36 +14,42 @@ import { auth, handleUserProfile } from '../src/Firebase/utils'
 import ForgotPassword from './pages/ForgotPaassword';
 import { connect } from 'react-redux'
 import { setCurrentUser } from './Redux/User/user.actions';
+import UserAccount from './pages/UserAccount'
+import WithAuth from './HigherOrderComponents/withAuth';
 
-class App extends Component{
+const App = props => {
 
-  authListener = null
+  const { setCurrentUser, currentUser } = props
 
-  componentDidMount(){
+  useEffect(() => {
 
-    const { currentUser } = this.props
-
-    this.authListener = auth.onAuthStateChanged(async userAuth => {
+    const authListener = auth.onAuthStateChanged(async userAuth => {
       if(userAuth){
         const userRef = await handleUserProfile(userAuth)
         userRef.onSnapshot(snapshot =>{
-          this.props.setCurrentUser({
+          setCurrentUser({
               id: snapshot.id,
               ...snapshot.data()
           })
         })
       }
-      this.props.setCurrentUser(userAuth)
+      setCurrentUser(userAuth)
     })
-  }
+    return () => {
+      authListener()
+    }
+  }, [])
+  
+  // componentDidMount(){
 
-  componentWillUnmount(){
-    this.authListener()
-  }
+    
+  // }
 
-  render(){
+  // componentWillUnmount(){
+  // }
 
-    const { currentUser } = this.props
+
+    // const { currentUser } = props
     return(
       //<StylesProvider injectFirst>
         <div style={{paddingBottom:'300px',background:'#A0F1F4', height:'100%'}}>
@@ -65,11 +71,17 @@ class App extends Component{
                 <Route exact path='' element={<Section currentUser={currentUser}/>}/>
               </Route>
               <Route exact path ='/password-reset' element={<ForgotPassword currentUser={currentUser}/>}/>
+              <Route exact path ='my-account' element={
+                <WithAuth>
+                  <UserAccount currentUser={currentUser}/>
+                </WithAuth>
+              }/>
+              
+              {/* <Route exact path = '/my-account' element={<UserAccount currentUser={currentUser}/>}/> */}
             </Routes>
           </Router>
       </div>
     )}
-  }
 
 const mapStateToProps = ({user}) => ({
   currentUser: user.currentUser

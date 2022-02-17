@@ -128,7 +128,12 @@ const Registration = props => {
                     <InputLabel htmlFor="my-input" sx={{color:passwordColor}}>
                         {confirmPassword ? '' : 'Confirm Password'}
                     </InputLabel>
-                    <TextField type='password' id="confirm" aria-describedby="my-helper-text" value={confirmPassword} onChange={getConfirmPassword}/>
+                    <TextField
+                        type='password' 
+                        id="confirm" 
+                        aria-describedby="my-helper-text" 
+                        value={confirmPassword} 
+                        onChange={getConfirmPassword}/>
                 </FormControl>
             </Grid>
             <Grid item sm={12}>
