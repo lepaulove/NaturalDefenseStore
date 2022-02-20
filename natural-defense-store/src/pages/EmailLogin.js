@@ -1,10 +1,12 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { FormControl, useFormControl, InputLabel, Input, FormHelperText, TextField, Button, Paper } from "@mui/material";
 import { Box, Grid } from "@mui/material";
 import { styled } from "@mui/styles";
 import { display } from "@mui/system";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { signInWithGoogle, signOut, auth } from '../Firebase/utils'
+import { useDispatch, useSelector } from "react-redux";
+import { signInUser, resetAllAuthForms } from '../Redux/User/user.actions'
 
 const LoginContainer = styled(Grid)({
     display:'flex', 
@@ -17,14 +19,27 @@ const LoginContainer = styled(Grid)({
     color:'#ffffff',
 })
 
+const mapState = ({user}) => ({
+    signInSuccess: user.signInSuccess
+})
+
 const EmailLogin = props => {
 
+    const {signInSuccess} = useSelector(mapState)
+    const dispatch = useDispatch()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [emailColor, setEmailColor] = useState('white')
     const [passwordColor, setPasswordColor] = useState('white')
     const [error, setError] = useState(false)
+    const navigate = useNavigate()
     const { currentUser } = props
+
+    useEffect(() => {
+        if(signInSuccess){
+            dispatch(resetAllAuthForms())
+        }
+    }, [signInSuccess])
     
     const getEmail = event =>{
         let val = event.target.value
@@ -61,11 +76,7 @@ const EmailLogin = props => {
     }
     
     const formSubmit = async event =>{ 
-        try{
-            await auth.signInWithEmailAndPassword(email, password)
-        }catch(err){
-            setError(true)
-        }  
+         dispatch(signInUser({email, password}))
     }
 
     return(

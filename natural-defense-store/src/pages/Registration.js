@@ -1,10 +1,11 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { FormControl, useFormControl, InputLabel, Input, FormHelperText, TextField, Button, Paper, Alert } from "@mui/material";
 import { Box, Grid } from "@mui/material";
 import { styled } from "@mui/styles";
 import { display } from "@mui/system";
 import { Link, Outlet } from "react-router-dom";
-import { auth, handleUserProfile} from '../Firebase/utils'
+import { useDispatch, useSelector } from "react-redux";
+import { resetAllAuthForms, signUpUser } from "../Redux/User/user.actions";
 
 const LoginContainer = styled(Grid)({
     display:'flex', 
@@ -17,8 +18,15 @@ const LoginContainer = styled(Grid)({
     color:'#ffffff',
 })
 
+const mapState = ({ user }) => ({
+    signUpSuccess: user.signUpSuccess,
+    signUpError: user.signUpError
+})
+
 const Registration = props => {
 
+    const {signUpSuccess, signUpError} = useSelector(mapState)
+    const dispatch = useDispatch()
     const [displayName = '', setDisplayName] = useState()
     const [email = '', setEmail] = useState()
     const [password = '', setPassword] = useState()
@@ -29,6 +37,17 @@ const Registration = props => {
     const [redirectUser = false, setRedirectUser] = useState()
     const { currentUser } = props
     
+    useEffect(() => {
+        if(signUpSuccess){
+            dispatch(resetAllAuthForms())
+        }
+    }, [signUpSuccess])
+
+    useEffect(() => {
+        if(Array.isArray(signUpError) && signUpError.length > 0){
+            
+        }
+    }, [signUpError])
 
     const getDisplayName = event =>{
         let val = event.target.value
@@ -76,22 +95,16 @@ const Registration = props => {
     
     const formSubmit = async event =>{ 
         event.preventDefault()
-        if(password !== confirmPassword){
-            alert('Password Do Not Match')
-            return
-        }  
-
-        try{
-            const { user } = await auth.createUserWithEmailAndPassword(email, password)
-            await handleUserProfile(user, { displayName })
-            setRedirectUser(true)
-        }catch(err){
-            console.log(err)
-        }
+        dispatch(signUpUser({
+            displayName,
+            email,
+            password,
+            confirmPassword
+        }))
     }
 
     return(
-        !redirectUser ? 
+        !signUpSuccess ? 
         <LoginContainer container sx={{margin: '2rem auto'}} gap={1}>
             <Grid item>
                 <FormControl sx={textFieldStyle}>
@@ -140,6 +153,7 @@ const Registration = props => {
                 <Button sx={bg} onClick={(formSubmit)}>
                     Submit
                 </Button>
+                <p style={{color:'red', fontWeight:'bold'}}>{signUpError[0]}</p>
             </Grid>
             {/* <Link style={{textDecoration:'none', alignSelf:'center'}} to='/register'>
                 <Button sx={bg}>

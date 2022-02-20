@@ -6,11 +6,12 @@ import mango from '../images/mango-smoothie.jpg'
 import green from '../images/green-smoothie.jpg'
 import strawberry from '../images/strawberry-smoothie2.jpg'
 import ProductOptions from "./ProductOptions";
+import SelectAddOns from "./SelectAddOns";
 
 
 export default function ProductView(props){
     return(
-        <Grid item md={4} xs={6} sx={{alignSelf:'center'}}>
+        <Grid item md={3} xs={6} sx={{alignSelf:'center'}}>
             <Paper sx={{}} elevation={5} sx={{}}>
                 <Box>
                     <Image src={green}/>
@@ -18,7 +19,7 @@ export default function ProductView(props){
                         {props.productName}
                     </Typography>
                     <ProductOptions />
-                    <ProductOptions />
+                    <SelectAddOns />
                 </Box>
             </Paper>
         </Grid>

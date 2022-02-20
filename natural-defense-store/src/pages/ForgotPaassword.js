@@ -1,11 +1,12 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import { FormControl, useFormControl, InputLabel, Input, FormHelperText, TextField, Button, Paper } from "@mui/material";
 import { Box, Grid } from "@mui/material";
 import { styled } from "@mui/styles";
 import { display } from "@mui/system";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate, useSearchParams } from "react-router-dom";
 import { signInWithGoogle, signOut, auth } from '../Firebase/utils'
-
+import { useDispatch, useSelector } from "react-redux";
+import { resetPassword, resetAllAuthForms } from "../Redux/User/user.actions";
 
 const LoginContainer = styled(Grid)({
     display:'flex', 
@@ -18,13 +19,33 @@ const LoginContainer = styled(Grid)({
     color:'#ffffff',
 })
 
+const mapState = ({ user }) => ({
+    resetPasswordSuccess: user.resetPasswordSuccess,
+    resetPasswordError: user.resetPasswordError
+})
+
 const ForgotPassword = props => {
 
+    const {resetPasswordSuccess, resetPasswordError} = useSelector(mapState)
+    const dispatch = useDispatch()
     const [email = '', setEmail] = useState()
     const [emailColor = 'white', setEmailColor] = useState()
     let navigate = useNavigate()
     const { currentUser } = props
     
+    useEffect(() =>{
+        if(resetPasswordSuccess){
+            dispatch(resetAllAuthForms())
+            navigate('/email-login')
+        }
+    }, [resetPasswordSuccess])
+
+    useEffect(() =>{
+        if(Array.isArray(resetPasswordError) && resetPasswordError.length > 0){
+            
+        }
+    }, [resetPasswordError])
+
     const getEmail = event =>{
         let val = event.target.value
         setEmail(val)
@@ -51,21 +72,8 @@ const ForgotPassword = props => {
         }
     }
     
-    const formSubmit = async event =>{ 
-        
-        try{
-            const config = {
-                url: 'http://localhost:3000/email-login'
-            }
-            await  auth.sendPasswordResetEmail(email, config).then(() => {
-                navigate('/email-login')
-            }).catch(() => {
-
-            })
-            // await auth.signInWithEmailAndPassword(email, password)
-        }catch(err){
-            console.log(err)
-        }  
+    const formSubmit = event =>{ 
+          dispatch(resetPassword({email}))
     }
 
     return(
@@ -89,6 +97,7 @@ const ForgotPassword = props => {
                 <Button sx={bg} onClick={(formSubmit)}>
                     Send Link
                 </Button>
+                <p style={{color:'red', fontWeight:'bold'}}>{resetPasswordError[0]}</p>
             </Grid>
         </LoginContainer> : <Outlet />
     )
