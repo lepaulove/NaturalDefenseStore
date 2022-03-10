@@ -16,6 +16,9 @@ import { connect, useSelector, useDispatch } from 'react-redux'
 import { checkUserSession, setCurrentUser, signInSuccess } from './Redux/User/user.actions';
 import UserAccount from './pages/UserAccount'
 import WithAuth from './HigherOrderComponents/withAuth';
+import Admin from './pages/Admin';
+import WithAdminAuth from './HigherOrderComponents/withAdminAuth';
+import AdminToolbar from './Components/AdminToolbar';
 
 const App = props => {
 
@@ -28,43 +31,15 @@ const App = props => {
     dispatch(checkUserSession())
   }, [])
 
-  // useEffect(() => {
-
-  //   const authListener = auth.onAuthStateChanged(async userAuth => {
-  //     if(userAuth){
-  //       const userRef = await handleUserProfile(userAuth)
-  //       userRef.onSnapshot(snapshot =>{
-  //         dispatch(signInSuccess({
-  //             id: snapshot.id,
-  //             ...snapshot.data()
-  //         }))
-  //       })
-  //     }
-  //     dispatch(signInSuccess(userAuth))
-  //   })
-  //   return () => {
-  //     authListener()
-  //   }
-  // }, [])
-  
-  // componentDidMount(){
-
-    
-  // }
-
-  // componentWillUnmount(){
-  // }
-
-
-    // const { currentUser } = props
     return(
       //<StylesProvider injectFirst>
         <div style={{paddingBottom:'300px',background:'#A0F1F4', height:'100%'}}>
-          <Banner/>
+          
           {/* <FullWidthTabs/> */}
           <Router>
-            
-            <ResponsiveAppBar currentUser={currentUser}/>
+            <AdminToolbar />
+            <Banner />
+            <ResponsiveAppBar currentUser={currentUser} />
             <Routes>
               <Route exact path='/naturaldefensestore' element={<Section currentUser={currentUser}/>} />
               <Route exact path='/atomy' element={<Atomy currentUser={currentUser}/>}/>
@@ -83,6 +58,7 @@ const App = props => {
                   <UserAccount currentUser={currentUser}/>
                 </WithAuth>
               }/>
+              <Route exact path ='/admin' element={<WithAdminAuth><Admin/></WithAdminAuth>}/>
               
               {/* <Route exact path = '/my-account' element={<UserAccount currentUser={currentUser}/>}/> */}
             </Routes>
