@@ -11,7 +11,6 @@ import MenuItem from '@mui/material/MenuItem';
 import {Link, Navigate, useNavigate} from 'react-router-dom'
 import NavElements from './NavElements'
 import { styled } from '@mui/system';
-import { signOut } from '../Firebase/utils';
 
 const pages = [{name:'Order Smoothie Online', route:'/order'}, {name1:'Atomy Products', route:'/atomy'}, {name2:'Vitamins and Suppliments', route:'/vitamins'}];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];

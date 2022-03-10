@@ -13,7 +13,7 @@ import EmailLogin from './pages/EmailLogin';
 import { auth, handleUserProfile } from '../src/Firebase/utils'
 import ForgotPassword from './pages/ForgotPaassword';
 import { connect, useSelector, useDispatch } from 'react-redux'
-import { setCurrentUser } from './Redux/User/user.actions';
+import { checkUserSession, setCurrentUser, signInSuccess } from './Redux/User/user.actions';
 import UserAccount from './pages/UserAccount'
 import WithAuth from './HigherOrderComponents/withAuth';
 
@@ -25,23 +25,27 @@ const App = props => {
 
 
   useEffect(() => {
-
-    const authListener = auth.onAuthStateChanged(async userAuth => {
-      if(userAuth){
-        const userRef = await handleUserProfile(userAuth)
-        userRef.onSnapshot(snapshot =>{
-          dispatch(setCurrentUser({
-              id: snapshot.id,
-              ...snapshot.data()
-          }))
-        })
-      }
-      dispatch(setCurrentUser(userAuth))
-    })
-    return () => {
-      authListener()
-    }
+    dispatch(checkUserSession())
   }, [])
+
+  // useEffect(() => {
+
+  //   const authListener = auth.onAuthStateChanged(async userAuth => {
+  //     if(userAuth){
+  //       const userRef = await handleUserProfile(userAuth)
+  //       userRef.onSnapshot(snapshot =>{
+  //         dispatch(signInSuccess({
+  //             id: snapshot.id,
+  //             ...snapshot.data()
+  //         }))
+  //       })
+  //     }
+  //     dispatch(signInSuccess(userAuth))
+  //   })
+  //   return () => {
+  //     authListener()
+  //   }
+  // }, [])
   
   // componentDidMount(){
 
@@ -90,8 +94,8 @@ const mapState = ({user}) => ({
   currentUser: user.currentUser
 })
 
-const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
-})
+// const mapDispatchToProps = dispatch => ({
+//   setCurrentUser: user => dispatch(setCurrentUser(user))
+// })
 
 export default App

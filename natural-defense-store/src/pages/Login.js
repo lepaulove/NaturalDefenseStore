@@ -1,11 +1,14 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import { FormControl, useFormControl, InputLabel, Input, FormHelperText, TextField, Button, Paper, useMediaQuery } from "@mui/material";
 import { Box, Grid } from "@mui/material";
 import { styled } from "@mui/styles";
 import { display, maxWidth } from "@mui/system";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { signInWithGoogle, signOut, auth } from '../Firebase/utils'
 import { useTheme } from "styled-components";
+import { useSelector, useDispatch } from 'react-redux'
+import { googleSignInStart } from "../Redux/User/user.actions";
+// import { googleSignIn } from "../Redux/User/user.sagas";
 
 const LoginContainer = styled(Grid)({
     display:'flex', 
@@ -34,13 +37,32 @@ function MyComponent(){
     const matches = useMediaQuery(theme.breakpoints.up('sm'))
 }
 
+const mapState = ({ user }) => ({
+    currentUser: user.currentUser
+})
+
 const Login = props => {
 
+    const {currentUser} = useSelector(mapState)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [email = '', setEmail] = useState()
     const [password = '', setPassword] = useState()
     const [emailColor = 'white', setEmailColor] = useState()
     const [passwordColor = 'white', setPasswordColor] = useState()
-    const { currentUser } = props
+    // const { currentUser } = props
+
+    useEffect(() => {
+        if(currentUser){
+            // dispatch(resetAllAuthForms())
+            navigate('/naturaldefensestore')
+        }
+    }, [currentUser])
+
+    const handleGoogleSignIn = () => {
+        dispatch(googleSignInStart())
+        // signInWithGoogle()
+    }
     
     const getEmail = event =>{
         let val = event.target.value
@@ -91,14 +113,13 @@ const Login = props => {
     }
 
     return(
-        !currentUser ? 
         <Paper elevation={5} sx={{maxWidth:'fit-content', margin:'2rem auto'}}>
             <LoginContainer sx={bg} container sx={{margin: '2rem auto'}}>
                 <Grid item sx={{alignSelf:'center', marginTop: 0}}sm={12}>
                     <h1>LOGIN</h1>
                 </Grid>
                 <Grid item sm={12}>
-                    <Button  onClick={(signInWithGoogle)}>
+                    <Button  onClick={(handleGoogleSignIn)}>
                         Sign-In with Google
                     </Button>
                 </Grid>
@@ -117,7 +138,7 @@ const Login = props => {
                     </Link>
                 </Grid>
             </LoginContainer>
-        </Paper> : <Outlet />
+        </Paper> 
     )
 }
 

@@ -3,9 +3,9 @@ import { FormControl, useFormControl, InputLabel, Input, FormHelperText, TextFie
 import { Box, Grid } from "@mui/material";
 import { styled } from "@mui/styles";
 import { display } from "@mui/system";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { resetAllAuthForms, signUpUser } from "../Redux/User/user.actions";
+import { resetAllAuthForms, signUpUser, signUpUserStart, signUpUserSuccess } from "../Redux/User/user.actions";
 
 const LoginContainer = styled(Grid)({
     display:'flex', 
@@ -19,13 +19,14 @@ const LoginContainer = styled(Grid)({
 })
 
 const mapState = ({ user }) => ({
-    signUpSuccess: user.signUpSuccess,
-    signUpError: user.signUpError
+    signUpUserSuccess: user.signUpUserSuccess,
+    userError: user.userError
 })
 
 const Registration = props => {
 
-    const {signUpSuccess, signUpError} = useSelector(mapState)
+    const {signUpUserSuccess, userError} = useSelector(mapState)
+    const redirect = false
     const dispatch = useDispatch()
     const [displayName = '', setDisplayName] = useState()
     const [email = '', setEmail] = useState()
@@ -35,19 +36,21 @@ const Registration = props => {
     const [passwordColor = 'white', setPasswordColor] = useState()
     const [errors, setErrors ] = useState([])
     const [redirectUser = false, setRedirectUser] = useState()
-    const { currentUser } = props
+    const navigate = useNavigate()
     
     useEffect(() => {
-        if(signUpSuccess){
+        if(signUpUserSuccess){
+            console.log('redirecting user...')
+            navigate('/email-login')
             dispatch(resetAllAuthForms())
         }
-    }, [signUpSuccess])
+    }, [signUpUserSuccess])
 
     useEffect(() => {
-        if(Array.isArray(signUpError) && signUpError.length > 0){
+        if(Array.isArray(userError) && userError.length > 0){
             
         }
-    }, [signUpError])
+    }, [userError])
 
     const getDisplayName = event =>{
         let val = event.target.value
@@ -93,9 +96,10 @@ const Registration = props => {
         }
     }
     
-    const formSubmit = async event =>{ 
+    const formSubmit = event =>{ 
         event.preventDefault()
-        dispatch(signUpUser({
+        // console.log(signUpUserSuccess)
+        dispatch(signUpUserStart({
             displayName,
             email,
             password,
@@ -104,7 +108,6 @@ const Registration = props => {
     }
 
     return(
-        !signUpSuccess ? 
         <LoginContainer container sx={{margin: '2rem auto'}} gap={1}>
             <Grid item>
                 <FormControl sx={textFieldStyle}>
@@ -153,14 +156,14 @@ const Registration = props => {
                 <Button sx={bg} onClick={(formSubmit)}>
                     Submit
                 </Button>
-                <p style={{color:'red', fontWeight:'bold'}}>{signUpError[0]}</p>
+                <p style={{color:'red', fontWeight:'bold'}}>{userError[0]}</p>
             </Grid>
             {/* <Link style={{textDecoration:'none', alignSelf:'center'}} to='/register'>
                 <Button sx={bg}>
                     {currentUser ? 'Logout' : 'Register'}
                 </Button>
             </Link> */}
-        </LoginContainer> : <Outlet />
+        </LoginContainer>
     )
 }
 

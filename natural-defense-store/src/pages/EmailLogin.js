@@ -7,6 +7,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { signInWithGoogle, signOut, auth } from '../Firebase/utils'
 import { useDispatch, useSelector } from "react-redux";
 import { signInUser, resetAllAuthForms } from '../Redux/User/user.actions'
+import { emailSignInStart } from "../Redux/User/user.actions";
 
 const LoginContainer = styled(Grid)({
     display:'flex', 
@@ -19,13 +20,13 @@ const LoginContainer = styled(Grid)({
     color:'#ffffff',
 })
 
-const mapState = ({user}) => ({
-    signInSuccess: user.signInSuccess
+const mapState = ({ user }) => ({
+    currentUser: user.currentUser
 })
 
 const EmailLogin = props => {
 
-    const {signInSuccess} = useSelector(mapState)
+    const { currentUser } = useSelector(mapState)
     const dispatch = useDispatch()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -33,13 +34,14 @@ const EmailLogin = props => {
     const [passwordColor, setPasswordColor] = useState('white')
     const [error, setError] = useState(false)
     const navigate = useNavigate()
-    const { currentUser } = props
+    // const { currentUser } = props
 
     useEffect(() => {
-        if(signInSuccess){
+        if(currentUser){
             dispatch(resetAllAuthForms())
+            navigate('/naturaldefensestore')
         }
-    }, [signInSuccess])
+    }, [currentUser])
     
     const getEmail = event =>{
         let val = event.target.value
@@ -75,8 +77,8 @@ const EmailLogin = props => {
         }
     }
     
-    const formSubmit = async event =>{ 
-         dispatch(signInUser({email, password}))
+    const formSubmit = event =>{ 
+         dispatch(emailSignInStart({email, password}))
     }
 
     return(

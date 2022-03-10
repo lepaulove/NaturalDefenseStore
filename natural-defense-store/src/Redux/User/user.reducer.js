@@ -1,61 +1,48 @@
+import { signUpUserSuccess } from "./user.actions";
 import userTypes from "./user.types";
 
 const INITIAL_STATE = {
     currentUser: null,
-    signInSuccess: false,
-    signUpSuccess: false,
-    signUpError: [],
-    resetPasswordSuccess: false,
-    resetPasswordError: []
+    userErr: [],
+    signUpUserSuccess: false,
+    resetPasswordSuccess: false
 }
 
 const userReducer = (state=INITIAL_STATE, action) => {
     switch(action.type) {
-        case userTypes.SET_CURRENT_USER:
+        case userTypes.SIGN_IN_SUCCESS: 
             return {
                 ...state,
-                currentUser: action.payload
+                currentUser: action.payload,
+                userError: []
             }
-        case userTypes.SIGN_IN_SUCCESS:{
-            return{
-                ...state,
-                signInSuccess: action.payload
-            }
-        }
-        case userTypes.SIGN_UP_ERROR:{
+        // case userTypes.RESET_USER_STATE:
+        case userTypes.SIGN_OUT_USER_SUCCESS:
             return {
                 ...state,
-                signUpError: action.payload
+                ...INITIAL_STATE
+                
             }
-        }
-        case userTypes.SIGN_UP_SUCCESS:{
-            return{
+        case userTypes.USER_ERROR:
+            return {
                 ...state,
-                signUpSuccess: action.payload
+                userErr: action.payload
             }
-        }
-        case userTypes.RESET_PASSWORD_SUCCESS:{
-            return{
+        case userTypes.SIGN_UP_USER_SUCCESS:
+            return {
+                ...state,
+                signUpUserSuccess: true
+            }
+        case userTypes.RESET_PASSWORD_SUCCESS:
+            return {
                 ...state,
                 resetPasswordSuccess: action.payload
             }
-        }
-        case userTypes.RESET_PASSWORD_ERROR:{
-            return{
+        case userTypes.RESET_USER_STATE:
+            return {
                 ...state,
-                resetPasswordError: action.payload
+                resetPasswordSuccess: false
             }
-        }
-        case userTypes.RESET_AUTH_FORMS:{
-            return{
-                ...state,
-                signInSuccess: false,
-                signUpSuccess: false,
-                signUpError: [],
-                resetPasswordSuccess: false,
-                resetPasswordError: []
-            }
-        }
         default:
             return state
     }

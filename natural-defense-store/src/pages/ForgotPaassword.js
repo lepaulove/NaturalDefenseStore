@@ -6,7 +6,8 @@ import { display } from "@mui/system";
 import { Link, Outlet, useNavigate, useSearchParams } from "react-router-dom";
 import { signInWithGoogle, signOut, auth } from '../Firebase/utils'
 import { useDispatch, useSelector } from "react-redux";
-import { resetPassword, resetAllAuthForms } from "../Redux/User/user.actions";
+import { resetPassword, resetAllAuthForms, resetPasswordStart, resetUserState} from "../Redux/User/user.actions";
+import { handleResetPasswordAPI } from '../Redux/User/user.helpers'
 
 const LoginContainer = styled(Grid)({
     display:'flex', 
@@ -21,12 +22,12 @@ const LoginContainer = styled(Grid)({
 
 const mapState = ({ user }) => ({
     resetPasswordSuccess: user.resetPasswordSuccess,
-    resetPasswordError: user.resetPasswordError
+    userErr: user.userErr
 })
 
 const ForgotPassword = props => {
 
-    const {resetPasswordSuccess, resetPasswordError} = useSelector(mapState)
+    const {resetPasswordSuccess, userErr} = useSelector(mapState)
     const dispatch = useDispatch()
     const [email = '', setEmail] = useState()
     const [emailColor = 'white', setEmailColor] = useState()
@@ -35,16 +36,16 @@ const ForgotPassword = props => {
     
     useEffect(() =>{
         if(resetPasswordSuccess){
-            dispatch(resetAllAuthForms())
+            dispatch(resetUserState())
             navigate('/email-login')
         }
     }, [resetPasswordSuccess])
 
     useEffect(() =>{
-        if(Array.isArray(resetPasswordError) && resetPasswordError.length > 0){
+        if(Array.isArray(userErr) && userErr.length > 0){
             
         }
-    }, [resetPasswordError])
+    }, [userErr])
 
     const getEmail = event =>{
         let val = event.target.value
@@ -73,7 +74,7 @@ const ForgotPassword = props => {
     }
     
     const formSubmit = event =>{ 
-          dispatch(resetPassword({email}))
+        dispatch(resetPasswordStart(email))
     }
 
     return(
@@ -97,7 +98,7 @@ const ForgotPassword = props => {
                 <Button sx={bg} onClick={(formSubmit)}>
                     Send Link
                 </Button>
-                <p style={{color:'red', fontWeight:'bold'}}>{resetPasswordError[0]}</p>
+                <p style={{color:'red', fontWeight:'bold'}}>{userErr[0]}</p>
             </Grid>
         </LoginContainer> : <Outlet />
     )
