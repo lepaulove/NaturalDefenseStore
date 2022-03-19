@@ -81,7 +81,7 @@ export default function FullWidthTabs() {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction} sx={{display:'flex', justifyContent:'center'}}>
-          <ProductList />
+          <ProductList productType='Smoothie'/>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <ProductList />

@@ -1,20 +1,26 @@
-import React from "react";
-import { Box, Grid, Paper, Button, Typography, Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
-import { ExpandMore } from "@mui/icons-material";
-import { Image } from "mui-image";
+import React, { useEffect } from "react"
+import { Box, Grid, Paper, Button, Typography, Accordion, AccordionSummary, AccordionDetails } from "@mui/material"
+import { ExpandMore } from "@mui/icons-material"
+import { Image } from "mui-image"
 import mango from '../images/mango-smoothie.jpg'
 import green from '../images/green-smoothie.jpg'
 import strawberry from '../images/strawberry-smoothie2.jpg'
 import ProductView from './ProductView'
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux"
+import { fetchProductsStart } from "../Redux/Products/products.actions"
 
 const mapState = ({ productsData }) => ({
     products: productsData.products
 })
 
-export default function Order(){
+export default function Order(props){
 
     const { products } = useSelector(mapState)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchProductsStart())
+    }, [])
 
     return(
         <Box sx={{width:'80%', margin:'0 auto'}}>
@@ -27,10 +33,10 @@ export default function Order(){
                         const {
                             productName,
                             productImageUrl,
-                            productPrice
+                            productType,
                         } = product
                         return(
-                            <ProductView productName={productName} productImage={productImageUrl}/>
+                            productType == props.productType ? <ProductView productName={productName} productImage={productImageUrl}/> : null
                             )
                     })}
                     {/* <ProductView productName='Green Machine'/>
