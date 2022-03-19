@@ -14,7 +14,7 @@ export default function ProductView(props){
         <Grid item md={3} xs={6} sx={{alignSelf:'center'}}>
             <Paper sx={{}} elevation={5} sx={{}}>
                 <Box>
-                    <Image src={green}/>
+                    <Image src = {props.productImage ? props.productImage : green} />
                     <Typography sx={{backgroundColor:'#03C417', textWeight:'bold'}}align='center' variant="subtitle1">
                         {props.productName}
                     </Typography>

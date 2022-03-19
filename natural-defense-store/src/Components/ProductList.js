@@ -6,8 +6,16 @@ import mango from '../images/mango-smoothie.jpg'
 import green from '../images/green-smoothie.jpg'
 import strawberry from '../images/strawberry-smoothie2.jpg'
 import ProductView from './ProductView'
+import { useSelector } from "react-redux";
+
+const mapState = ({ productsData }) => ({
+    products: productsData.products
+})
 
 export default function Order(){
+
+    const { products } = useSelector(mapState)
+
     return(
         <Box sx={{width:'80%', margin:'0 auto'}}>
             <Grid container justifyContent='space-between'>
@@ -15,7 +23,17 @@ export default function Order(){
                     <Typography variant="h3" sx={{paddingTop:'3rem', color:'red', textAlign:'center'}}>Place an Online Order for Pick Up</Typography>
                 </Grid>
                 <Grid container item spacing={5} justifyContent='space-between' sx={{display:'flex',  margin:'1rem'}}>
-                    <ProductView productName='Green Machine'/>
+                    {products.map((product, index) => {
+                        const {
+                            productName,
+                            productImageUrl,
+                            productPrice
+                        } = product
+                        return(
+                            <ProductView productName={productName} productImage={productImageUrl}/>
+                            )
+                    })}
+                    {/* <ProductView productName='Green Machine'/>
                     <ProductView productName='Another Smoothie'/>
                     <ProductView productName='Another Smoothie'/>
                     <ProductView productName='Another Smoothie'/>
@@ -27,7 +45,7 @@ export default function Order(){
                     <ProductView productName='Another Smoothie'/>
                     <ProductView productName='Another Smoothie'/>
                     <ProductView productName='Another Smoothie'/>
-                    <ProductView productName='Another Smoothie'/>
+                    <ProductView productName='Another Smoothie'/> */}
                 </Grid>
             </Grid>
         </Box>

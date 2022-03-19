@@ -8,6 +8,7 @@ import { signInWithGoogle, signOut, auth } from '../Firebase/utils'
 import { useDispatch, useSelector } from "react-redux";
 import { signInUser, resetAllAuthForms } from '../Redux/User/user.actions'
 import { emailSignInStart } from "../Redux/User/user.actions";
+import FormControlWrapper from "../CustomHooks/FormControlWrapper";
 
 const LoginContainer = styled(Grid)({
     display:'flex', 
@@ -85,23 +86,24 @@ const EmailLogin = props => {
         !currentUser ? 
         <LoginContainer container gap={1}>
             <Grid item>
-                <FormControl sx={textFieldStyle}>
-                    <InputLabel htmlFor="my-input" sx={{color:emailColor}} >
-                        {email ? '' : 'Email'}
-                    </InputLabel>
-                    <TextField type='email' id="email" aria-describedby="my-helper-text" value={email} onChange={getEmail}/>
-                    {/* <FormHelperText id="my-helper-text">
-                        We'll never share your email.
-                    </FormHelperText> */}
-                </FormControl>
+                <FormControlWrapper 
+                    formControlStyle = {textFieldStyle}
+                    inputLabelStyle = {{color:emailColor}}
+                    textFieldType = 'email'
+                    hint = 'Email'
+                    value = {email}
+                    handleChange = {getEmail}
+                />
             </Grid>
             <Grid item>
-                <FormControl sx={textFieldStyle}>
-                    <InputLabel htmlFor="my-input" sx={{color:passwordColor}}>
-                        {password ? '' : 'Password'}
-                    </InputLabel>
-                    <TextField type='password' id="password" aria-describedby="my-helper-text" value={password} onChange={getPassword}/>
-                </FormControl>
+                <FormControlWrapper 
+                    formControlStyle = {textFieldStyle}
+                    inputLabelStyle = {{color:passwordColor}}
+                    textFieldType = 'password'
+                    hint = 'Password'
+                    value = {password}
+                    handleChange = {getPassword}
+                />
             </Grid>
             <Grid item sm={12}>
                 <Button sx={bg} onClick={(formSubmit)}>
