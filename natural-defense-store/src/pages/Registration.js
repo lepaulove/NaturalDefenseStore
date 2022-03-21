@@ -156,7 +156,7 @@ const Registration = props => {
                 <Button sx={bg} onClick={(formSubmit)}>
                     Submit
                 </Button>
-                <p style={{color:'red', fontWeight:'bold'}}>{userError[0]}</p>
+                {/* <p style={{color:'red', fontWeight:'bold'}}>{userError[0]}</p> */}
             </Grid>
             {/* <Link style={{textDecoration:'none', alignSelf:'center'}} to='/register'>
                 <Button sx={bg}>
