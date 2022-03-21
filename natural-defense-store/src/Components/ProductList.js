@@ -23,12 +23,12 @@ export default function Order(props){
     }, [])
 
     return(
-        <Box sx={{width:'80%', margin:'0 auto'}}>
+        <Box sx={{width:'100%'}}>
             <Grid container justifyContent='space-between'>
                 <Grid item xs={12}>
-                    <Typography variant="h3" sx={{paddingTop:'3rem', color:'red', textAlign:'center'}}>Place an Online Order for Pick Up</Typography>
+                    <Typography sx={{paddingTop:'2rem', color:'red', textAlign:'center', fontSize:'1.2rem'}}>Place an Online Order for Pick Up</Typography>
                 </Grid>
-                <Grid container item spacing={5} justifyContent='space-between' sx={{display:'flex',  margin:'1rem'}}>
+                <Grid container item spacing={2} justifyContent='space-between' sx={{ pr:2, display:'flex',  margin:'1rem'}}>
                     {products.map((product, index) => {
                         const {
                             productName,

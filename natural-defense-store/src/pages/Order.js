@@ -21,7 +21,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box >
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -45,6 +45,7 @@ function a11yProps(index) {
 export default function FullWidthTabs() {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
+  const categories = ['Nutritional', 'Performance', 'Tropical', 'Cleansing', 'ND Special', 'Blend Your Own']
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -69,10 +70,15 @@ export default function FullWidthTabs() {
           textColor="inherit"
           variant="fullWidth"
         >
-          <Tab label="Deals" sx={{fontSize:'1.1rem'}}{...a11yProps(0)} />  
+          {categories.map((category, index) => {
+            return(
+              <Tab label={category} sx={{fontSize:'1.1rem'}}{...a11yProps(index)} />
+            )
+          })}
+          {/* <Tab label="Deals" sx={{fontSize:'1.1rem'}}{...a11yProps(0)} />  
           <Tab label="Featured" sx={{fontSize:'1.1rem'}} {...a11yProps(1)} />
           <Tab label="Immune Defense" sx={{fontSize:'1.1rem'}} {...a11yProps(2)} />
-          <Tab label="Recovery" sx={{fontSize:'1.1rem'}} {...a11yProps(3)} />
+          <Tab label="Recovery" sx={{fontSize:'1.1rem'}} {...a11yProps(3)} /> */}
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -80,10 +86,15 @@ export default function FullWidthTabs() {
         index={value}
         onChangeIndex={handleChangeIndex}
       >
-        <TabPanel value={value} index={0} dir={theme.direction} sx={{display:'flex', justifyContent:'center'}}>
-          <ProductList productType='Smoothie'/>
-        </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
+        {categories.map((category, index) => {
+            return(
+              <TabPanel value={value} index={index} dir={theme.direction} sx={{display:'flex', justifyContent:'center'}}>
+                {category == 'Nutritional' ? <ProductList productType='Smoothie'/> : category}
+              </TabPanel>
+            )
+          })}
+        
+        {/* <TabPanel value={value} index={1} dir={theme.direction}>
           <ProductList />
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
@@ -91,7 +102,7 @@ export default function FullWidthTabs() {
         </TabPanel>
         <TabPanel value={value} index={3} dir={theme.direction}>
           Recovery
-        </TabPanel>
+        </TabPanel> */}
       </SwipeableViews>
     </Box>
   );
