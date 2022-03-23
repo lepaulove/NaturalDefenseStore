@@ -8,6 +8,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import ProductList from '../Components/ProductList';
+import { useMediaQuery } from '@mui/material';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -45,6 +46,7 @@ function a11yProps(index) {
 export default function FullWidthTabs() {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
+  const isXSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const categories = ['Nutritional', 'Performance', 'Tropical', 'Cleansing', 'ND Special', 'Blend Your Own']
 
   const handleChange = (event, newValue) => {
@@ -61,6 +63,9 @@ export default function FullWidthTabs() {
         <Tabs
           value={value}
           onChange={handleChange}
+          variant={isXSmallScreen ? "scrollable" : "fullWidth"} 
+          // variant='scrollable'
+          scrollButtons="auto"
           TabIndicatorProps={{
             sx: {
                 backgroundColor: "#fa4720",
@@ -68,11 +73,23 @@ export default function FullWidthTabs() {
               }
             }}
           textColor="inherit"
-          variant="fullWidth"
         >
+        {/* <Tabs
+        value={value}
+        onChange={handleChange}
+        TabIndicatorProps={{
+          sx: {
+              backgroundColor: "#fa4720",
+              height: "5px"
+            }
+          }}
+        variant="scrollable"
+        scrollButtons="auto"
+        aria-label="scrollable auto tabs example"
+      > */}
           {categories.map((category, index) => {
             return(
-              <Tab label={category} sx={{fontSize:'1.1rem'}}{...a11yProps(index)} />
+              <Tab label={category} sx={{width:'10px', fontSize:{xs: '.5rem', sm: '1rem'}}}{...a11yProps(index)} />
             )
           })}
           {/* <Tab label="Deals" sx={{fontSize:'1.1rem'}}{...a11yProps(0)} />  

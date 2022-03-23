@@ -57,7 +57,7 @@ export default function Vitamins() {
   return (
     <Box sx={{ bgcolor: 'background.paper', width: '100%' }}>
       <AppBar position="static" sx={{bgcolor:'#46dc56', color:'#fa4720'}}>
-        <Tabs
+        {/* <Tabs
           value={value}
           onChange={handleChange}
           TabIndicatorProps={{
@@ -73,7 +73,7 @@ export default function Vitamins() {
           <Tab label="Featured" sx={{fontSize:'1.1rem'}} {...a11yProps(1)} />
           <Tab label="Immune Defense" sx={{fontSize:'1.1rem'}} {...a11yProps(2)} />
           <Tab label="Recovery" sx={{fontSize:'1.1rem'}} {...a11yProps(3)} />
-        </Tabs>
+        </Tabs> */}
       </AppBar>
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}

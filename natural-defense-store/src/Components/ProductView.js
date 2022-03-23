@@ -12,9 +12,9 @@ import SelectAddOns from "./SelectAddOns";
 export default function ProductView(props){
     return(
         <Grid item md={3} xs={6} sx={{alignSelf:'center'}}>
-            <Paper sx={{}} elevation={5} sx={{}}>
+            <Paper sx={{}} elevation={5}>
                 <Box>
-                    <Image src = {props.productImage ? props.productImage : green} />
+                    <Image style={{height:'155px', width:'155px'}} src = {props.productImage ? props.productImage : green} />
                     <Typography sx={{backgroundColor:'#03C417', textWeight:'bold'}}align='center' variant="subtitle1">
                         {props.productName}
                     </Typography>
