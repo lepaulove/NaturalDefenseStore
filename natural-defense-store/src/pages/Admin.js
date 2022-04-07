@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Container, Grid, Avatar, Button, Dialog, DialogTitle, FormControl, InputLabel, TextField } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import SimpleDialog from "./SimpleDialog";
+import AddProductsModal from "../Components/AddProductsModal";
 import { fetchProductsStart, deleteProductStart } from "../Redux/Products/products.actions";
 
 const mapUserState = ({ user }) => ({
@@ -19,6 +19,7 @@ const Admin = props => {
     const { products } = useSelector(mapProductsState)
     const [open, setOpen] = React.useState(false);
     const [selectedValue, setSelectedValue] = React.useState();
+    const [change, setChange] = useState(true)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -48,8 +49,10 @@ const Admin = props => {
                     <Button sx={{width:'100%', background:'black', color:'white', marginBottom:'5px'}}>Profile</Button>
                 </Grid>
             </Grid>
-            <Grid item container xs={9} sx={{border:'solid 3px grey', padding:'10px'}}>
-                <Button onClick={handleClickOpen} sx={{height:'40px', background:'black', color:'white'}} >Add Product</Button>
+            <Grid item container xs={9} sx={{display:"flex", justifyContent:"space-around", border:'solid 3px grey', padding:'10px'}}>
+                <Button onClick={handleClickOpen} sx={{height:'40px', background:'black', color:'white'}} >Add Smoothie Product</Button>
+                <Button onClick={handleClickOpen} sx={{height:'40px', background:'black', color:'white'}} >Add Atomy Product</Button>
+                <Button onClick={handleClickOpen} sx={{height:'40px', background:'black', color:'white'}} >Add Vitamin/Supplement Product</Button>
             </Grid>
             <Grid item xs={12}>
                 <table>
@@ -67,11 +70,11 @@ const Admin = props => {
                                             const {
                                                 productName,
                                                 productImageUrl,
-                                                productPrice,
+                                                productIngredients,
                                                 documentID
                                             } = product
                                             return(
-                                                <tr style={{background:'#d3d3d3'}}>
+                                                <tr key={index} style={{background:'#d3d3d3'}}>
                                                     <td>
                                                         <img src={productImageUrl} style={{width:'100px', height:'100px'}}/>
                                                     </td>
@@ -79,10 +82,12 @@ const Admin = props => {
                                                         {productName}
                                                     </td>
                                                     <td>
-                                                        ${productPrice}
+                                                        {productIngredients.map((ingredient, index) => {
+                                                            return(` - ${ingredient}`)
+                                                        })}
                                                     </td>
                                                     <td>
-                                                        <Button onClick={() => dispatch(deleteProductStart(documentID))}>Delete</Button>
+                                                        <Button onClick={() => {dispatch(deleteProductStart(documentID)); setChange(!change)}}>Delete</Button>
                                                     </td>
                                                 </tr>
                                             )
@@ -94,7 +99,7 @@ const Admin = props => {
                     </tbody>
                 </table>
             </Grid>
-            <SimpleDialog
+            <AddProductsModal
                 selectedValue={selectedValue}
                 open={open}
                 onClose={handleClose}

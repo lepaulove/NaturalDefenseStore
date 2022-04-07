@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Atomy from '../pages/Atomy'
 import Vitamins from '../pages/Vitamins'
-import Order from '../pages/Order'
+import Order from '../pages/Smoothies'
 import Login from '../pages/Login'
 
 function TabPanel(props) {

@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/NaturalDefenseStore/static/css/main.d7ea1367.css",
-    "main.js": "/NaturalDefenseStore/static/js/main.e4d4c721.js",
+    "main.js": "/NaturalDefenseStore/static/js/main.565f54f6.js",
     "static/media/banner-image.png": "/NaturalDefenseStore/static/media/banner-image.ccce0de7128e1724a399.png",
     "static/media/mango.jpg": "/NaturalDefenseStore/static/media/mango.c723dca3226f1c8febe5.jpg",
     "static/media/pineapple.jpg": "/NaturalDefenseStore/static/media/pineapple.69580728a963cf443660.jpg",
@@ -12,10 +12,10 @@
     "static/media/mango-smoothie.jpg": "/NaturalDefenseStore/static/media/mango-smoothie.4f0b281baa979faff36c.jpg",
     "index.html": "/NaturalDefenseStore/index.html",
     "main.d7ea1367.css.map": "/NaturalDefenseStore/static/css/main.d7ea1367.css.map",
-    "main.e4d4c721.js.map": "/NaturalDefenseStore/static/js/main.e4d4c721.js.map"
+    "main.565f54f6.js.map": "/NaturalDefenseStore/static/js/main.565f54f6.js.map"
   },
   "entrypoints": [
     "static/css/main.d7ea1367.css",
-    "static/js/main.e4d4c721.js"
+    "static/js/main.565f54f6.js"
   ]
 }

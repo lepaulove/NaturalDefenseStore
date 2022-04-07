@@ -12,7 +12,7 @@ import {Link, Navigate, useNavigate} from 'react-router-dom'
 import NavElements from './NavElements'
 import { styled } from '@mui/system';
 
-const pages = [{name:'Order Smoothie Online', route:'/order'}, {name1:'Atomy Products', route:'/atomy'}, {name2:'Vitamins and Suppliments', route:'/vitamins'}];
+const pages = [{name:'Order Smoothie Online', route:'/smoothies'}, {name1:'Atomy Products', route:'/atomy'}, {name2:'Vitamins and Suppliments', route:'/vitamins'}];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const ResponsiveAppBar = props => {
@@ -101,7 +101,7 @@ const ResponsiveAppBar = props => {
                     <Typography textAlign="center">Home</Typography>
                   </MenuItem>
                 </Links>
-                <Links to='/order'>
+                <Links to='/smoothies'>
                   <MenuItem onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">Order Smoothie Onlne</Typography>
                   </MenuItem>
@@ -133,7 +133,7 @@ const ResponsiveAppBar = props => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent:'space-around' }}>
                 <Links to='/naturaldefensestore'><NavElements name='Home'></NavElements></Links>
-                <Links to='/order'><NavElements name='Order Smoothies Online'></NavElements></Links>
+                <Links to='/smoothies'><NavElements name='Order Smoothies Online'></NavElements></Links>
                 <Links to='/atomy'><NavElements name='Atomy Products'></NavElements></Links>
                 <Links to='/vitamins'><NavElements name='Vitimans & Suppliments'></NavElements></Links>
                 {currentUser ? <NavElements name='My Account'></NavElements> : 

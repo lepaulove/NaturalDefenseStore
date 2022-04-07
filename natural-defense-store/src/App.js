@@ -5,7 +5,7 @@ import Section from './Components/Section';
 import { BrowserRouter as Router, Routes, Route, Redirect } from 'react-router-dom'
 import Atomy from './pages/Atomy';
 import Vitamins from './pages/Vitamins'
-import Order from './pages/Order';
+import Smoothies from './pages/Smoothies';
 import ResponsiveAppBar from './Components/Navigation';
 import Login from './pages/Login';
 import Registration from './pages/Registration';
@@ -19,6 +19,7 @@ import WithAuth from './HigherOrderComponents/withAuth';
 import Admin from './pages/Admin';
 import WithAdminAuth from './HigherOrderComponents/withAdminAuth';
 import AdminToolbar from './Components/AdminToolbar';
+import SmoothieDetails from './pages/SmoothieDetails';
 
 const App = props => {
 
@@ -44,7 +45,7 @@ const App = props => {
               <Route exact path='/naturaldefensestore' element={<Section currentUser={currentUser}/>} />
               <Route exact path='/atomy' element={<Atomy currentUser={currentUser}/>}/>
               <Route exact path='/vitamins' element={<Vitamins currentUser={currentUser}/>}/>
-              <Route exact path='/order' element={<Order currentUser={currentUser}/>}/>
+              <Route exact path='/smoothies' element={<Smoothies currentUser={currentUser}/>}/>
               <Route exact path='/login' element={<Login currentUser={currentUser}/>}>
                 <Route exact path='' element={<Section currentUser={currentUser}/>}/>
               </Route>
@@ -53,6 +54,7 @@ const App = props => {
                 <Route exact path='' element={<Section currentUser={currentUser}/>}/>
               </Route>
               <Route exact path ='/password-reset' element={<ForgotPassword currentUser={currentUser}/>}/>
+              <Route exacr path='/customize-order' element={<SmoothieDetails/>}/>
               <Route exact path ='my-account' element={
                 <WithAuth>
                   <UserAccount currentUser={currentUser}/>

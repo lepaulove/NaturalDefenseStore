@@ -18,3 +18,13 @@ export const deleteProductStart = productID => ({
     type: productTypes.DELETE_PRODUCT_START,
     payload: productID
 })
+
+export const setCurrentProduct = currentProduct => ({
+    type: productTypes.SET_CURRENT_PRODUCT,
+    payload: currentProduct
+})
+
+export const setAvailableIngredients = ingredients => ({
+    type: productTypes.SET_AVAILABLE_INGREDIENTS,
+    payload: ingredients
+})

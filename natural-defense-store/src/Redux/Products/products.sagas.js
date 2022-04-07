@@ -5,18 +5,20 @@ import { auth } from "../../Firebase/utils"
 import { setProducts, fetchProductsStart } from "./products.actions"
 
 export function* addProduct({payload: {
-    productType,
+    productCategory,
     productName,
     productImageUrl,
-    productPrice
+    productIngredients
+    // productPrice
 }}){
     try{
         const timeStamp = new Date()
         yield handleAddProduct({
-            productType,
+            productCategory,
             productName,
             productImageUrl,
-            productPrice,
+            productIngredients,
+            // productPrice,
             productAdminUserUID: auth.currentUser.uid,
             createdDate: timeStamp
         })

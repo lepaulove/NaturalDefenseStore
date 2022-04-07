@@ -17,10 +17,19 @@ export default function Order(props){
 
     const { products } = useSelector(mapState)
     const dispatch = useDispatch()
+    // const smoothies = Object.keys(props.smoothies[0])
+    // console.log(props.smoothies[0][smoothies[0]])
+        
 
     useEffect(() => {
         dispatch(fetchProductsStart())
     }, [])
+
+    // const getProducts = () => {
+    //     for(let product of props.smoothies){
+    //         product
+    //     }
+    // }
 
     return(
         <Box sx={{width:'100%'}}>
@@ -29,14 +38,11 @@ export default function Order(props){
                     <Typography sx={{paddingTop:'2rem', color:'red', textAlign:'center', fontSize:'1.2rem', fontWeight:'bold'}}>Place an Online Order for Pick Up</Typography>
                 </Grid>
                 <Grid container item spacing={2} justifyContent='space-between' sx={{ pr:2, display:'flex',  margin:'1rem'}}>
-                    {products.map((product, index) => {
-                        const {
-                            productName,
-                            productImageUrl,
-                            productType,
-                        } = product
+                    {products.map((smoothie, index) => {
+                        // if(!productName || !productImageUrl || typeof productPrice === 'undefined') return null
+                        // getProducts()
                         return(
-                            productType == props.productType ? <ProductView productName={productName} productImage={productImageUrl}/> : null
+                             smoothie.productCategory === props.productCategory ? <ProductView smoothie={smoothie}/> : null
                             )
                     })}
                     {/* <ProductView productName='Green Machine'/>
