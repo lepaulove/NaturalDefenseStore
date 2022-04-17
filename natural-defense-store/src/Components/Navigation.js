@@ -8,17 +8,28 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
-import {Link, Navigate, useNavigate} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import NavElements from './NavElements'
 import { styled } from '@mui/system';
+import Badge from '@mui/material/Badge';
+// import { styled } from '@mui/material/styles';
+// import IconButton from '@mui/material/IconButton';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useSelector } from 'react-redux';
+// import { selectCartItemsCount } from '../Redux/Cart/cart.selectors';
 
 const pages = [{name:'Order Smoothie Online', route:'/smoothies'}, {name1:'Atomy Products', route:'/atomy'}, {name2:'Vitamins and Suppliments', route:'/vitamins'}];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const mapState = (state) => ({
+  cart: state.cartData.cartItems,
+  // totalCartItems: selectCartItemsCount(state)
+})
 
 const ResponsiveAppBar = props => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate()
+  const { cart, totalCartItems } = useSelector(mapState)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -51,6 +62,15 @@ const ResponsiveAppBar = props => {
         
   })
 
+  const StyledBadge = styled(Badge)(({ theme }) => ({
+    '& .MuiBadge-badge': {
+      right: -3,
+      top: 13,
+      // border: `2px solid ${theme.palette.background.paper}`,
+      padding: '0 4px',
+    },
+  }));
+
   const { currentUser } = props
 
   return (
@@ -66,6 +86,7 @@ const ResponsiveAppBar = props => {
           >
             NDS
           </Typography>
+          
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -138,6 +159,14 @@ const ResponsiveAppBar = props => {
                 <Links to='/vitamins'><NavElements name='Vitimans & Suppliments'></NavElements></Links>
                 {currentUser ? <NavElements name='My Account'></NavElements> : 
                 <Links to='/login'><NavElements name='Login'></NavElements></Links>}
+                  <IconButton aria-label="cart" onClick={() => {navigate('/cart')}}>
+                    <StyledBadge badgeContent={cart.reduce(
+            (quantity, cartItem) => 
+                quantity + cartItem.quantity, 0
+        )} color="secondary">
+                      <ShoppingCartIcon/>
+                    </StyledBadge>
+                  </IconButton>
 
             {/* {pages.map((page) => (
               <Link to={page.route}><Button

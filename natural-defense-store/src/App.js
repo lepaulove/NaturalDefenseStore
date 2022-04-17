@@ -20,6 +20,7 @@ import Admin from './pages/Admin';
 import WithAdminAuth from './HigherOrderComponents/withAdminAuth';
 import AdminToolbar from './Components/AdminToolbar';
 import SmoothieDetails from './pages/SmoothieDetails';
+import Cart from './pages/Cart';
 
 const App = props => {
 
@@ -42,6 +43,7 @@ const App = props => {
             <Banner />
             <ResponsiveAppBar currentUser={currentUser} />
             <Routes>
+              <Route exact path='/cart' element={<Cart/>}/>
               <Route exact path='/naturaldefensestore' element={<Section currentUser={currentUser}/>} />
               <Route exact path='/atomy' element={<Atomy currentUser={currentUser}/>}/>
               <Route exact path='/vitamins' element={<Vitamins currentUser={currentUser}/>}/>
@@ -60,7 +62,7 @@ const App = props => {
                   <UserAccount currentUser={currentUser}/>
                 </WithAuth>
               }/>
-              <Route exact path ='/admin' element={<WithAdminAuth><Admin/></WithAdminAuth>}/>
+              <Route exact path='/admin' element={<WithAdminAuth><Admin/></WithAdminAuth>}/>
               
               {/* <Route exact path = '/my-account' element={<UserAccount currentUser={currentUser}/>}/> */}
             </Routes>

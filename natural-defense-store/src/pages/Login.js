@@ -78,7 +78,7 @@ const Login = props => {
 
     const bg = {
         background:'darkgreen',
-        margin: 'rem auto',
+        margin: 'auto',
         color: 'white',
         width: '60rem',
         maxWidth: '15rem',
@@ -114,7 +114,7 @@ const Login = props => {
 
     return(
         <Paper elevation={5} sx={{maxWidth:'fit-content', margin:'2rem auto'}}>
-            <LoginContainer sx={bg} container sx={{margin: '2rem auto'}}>
+            <LoginContainer sx={bg} container sx={{}}>
                 <Grid item sx={{alignSelf:'center', marginTop: 0}}sm={12}>
                     <h1>LOGIN</h1>
                 </Grid>

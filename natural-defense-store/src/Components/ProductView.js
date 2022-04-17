@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Grid, Paper, Card, CardContent, CardMedia, Typography, CardActionArea } from "@mui/material";
+import { Box, Grid, Paper, Button, Card, CardContent, CardMedia, Typography, CardActionArea } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
 import { Image } from "mui-image";
 import mango from '../images/mango-smoothie.jpg'
@@ -10,6 +10,9 @@ import SelectAddOns from "./SelectAddOns";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCurrentProduct } from "../Redux/Products/products.actions";
+import { addProduct } from "../Redux/Products/products.sagas";
+import { addProductToCart } from "../Redux/Cart/cart.actions";
+
 
 
 export default function ProductView(props){
@@ -17,16 +20,19 @@ export default function ProductView(props){
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const smoothie = props.smoothie
-    // console.log(smoothie)
+    const handleAddToCart = (smoothie) => {
+        if(!smoothie) return
+        dispatch(addProductToCart(smoothie))
+    }
 
     return(
     <Grid item md={3} xs={6} sx={{ }} >
-        <Card sx={{ maxWidth: 345, minHeight: 454}} onClick={() => {
-            console.log(smoothie)
+        <Card sx={{ maxWidth: 345, minHeight: 454, pb:2, pl:2}}>
+            <CardActionArea onClick={() => {
+            // console.log(smoothie)
             dispatch(setCurrentProduct(smoothie))
             navigate('/customize-order')
-        }}>
-            <CardActionArea>
+            }}>
                 <CardMedia
                 component="img"
                 height="325"
@@ -44,6 +50,11 @@ export default function ProductView(props){
                 </Typography>
                 </CardContent>
             </CardActionArea>
+            <Button onClick={() => {
+            // console.log(smoothie)
+            dispatch(setCurrentProduct(smoothie))
+            navigate('/customize-order')
+            }} sx={{backgroundColor:'black', color:'whitesmoke', '&:hover':{background: 'darkgrey', color: 'black'}}}>See Item Details</Button>
         </Card>
     </Grid>
 
