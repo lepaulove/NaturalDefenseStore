@@ -96,17 +96,18 @@ const smoothies = {
 
 const ingrediants = new Set()
 
-for(let key1 of Object.keys(smoothies)){
-    // console.log(key1 + ' -> ')
-    for(let key2 of Object.keys(smoothies[key1])){
-    //    console.log('\t' + key2 + " -> " + smoothies[key1][key2]) 
-       for(let item of smoothies[key1][key2]){
-        //    ingrediants.add(item)
-           console.log(item)
-       }
+// for(let key1 of Object.keys(smoothies)){
+//     // console.log(key1 + ' -> ')
+//     for(let key2 of Object.keys(smoothies[key1])){
+//     //    console.log('\t' + key2 + " -> " + smoothies[key1][key2]) 
+//        for(let item of smoothies[key1][key2]){
+//         //    ingrediants.add(item)
+//            console.log(item)
+//        }
         
-    }
+//     }
         
-}
+// }
+const smooothies = {...smoothies, ...["Build Your Own"]["Fresh Fruits"]}
 
-console.log(ingrediants)
+console.log({...smooothies})
