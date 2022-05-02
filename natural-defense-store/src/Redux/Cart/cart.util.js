@@ -68,12 +68,8 @@ export const handleDeleteFromCart = ({prevCartItems, nextCartItem}) => {
     }
 
     return newCart
+}
 
-    // return [
-    //     ...prevCartItems,
-    //     {
-    //         ...nextCartItem,
-    //         quantity: 0
-    //     }
-    // ]
+export const handleCalculateTotal = (cartItems) => {
+    return cartItems.reduce((total, item) => total + (item.quantity * item.price), 0)
 }

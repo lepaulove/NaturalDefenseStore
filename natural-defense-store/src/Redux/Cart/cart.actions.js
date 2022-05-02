@@ -14,3 +14,7 @@ export const deleteProductFromCart = (cartItem) => ({
     type: cartTypes.DELETE_FROM_CART,
     payload: cartItem
 })
+
+export const updateTotalPrice = () => ({
+    type: cartTypes.UPDATE_TOTAL_PRICE
+})

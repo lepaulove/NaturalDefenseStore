@@ -1,5 +1,5 @@
 import cartTypes from "./cart.types";
-import { handleAddToCart, handleRemoveFromCart, handleDeleteFromCart } from "./cart.util";
+import { handleAddToCart, handleRemoveFromCart, handleDeleteFromCart, handleCalculateTotal } from "./cart.util";
 
 const INITIAL_STATE = {
     cartItems: [],
@@ -39,6 +39,11 @@ const cartReducer = (state = INITIAL_STATE, action) => {
                     prevCartItems: state.cartItems,
                     nextCartItem: action.payload
                 })
+            }
+        case cartTypes.UPDATE_TOTAL_PRICE:
+            return {
+                ...state,
+                totalPrice: handleCalculateTotal(state.cartItems)
             }
         default:
             return state

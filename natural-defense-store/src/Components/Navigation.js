@@ -98,7 +98,16 @@ const ResponsiveAppBar = props => {
               color="inherit"
             >
               <MenuIcon />
+              
             </IconButton>
+            <IconButton aria-label="cart" onClick={() => {navigate('/cart')}}>
+                    <StyledBadge badgeContent={cart.reduce(
+            (quantity, cartItem) => 
+                quantity + cartItem.quantity, 0
+        )} color="secondary">
+                      <ShoppingCartIcon/>
+                    </StyledBadge>
+                  </IconButton>
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -117,6 +126,8 @@ const ResponsiveAppBar = props => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
+              
+              
                 <Links to='/naturaldefensestore'>
                   <MenuItem onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">Home</Typography>

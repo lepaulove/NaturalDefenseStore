@@ -5,7 +5,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { Grid, Paper, Typography, Button, Accordion, AccordionSummary, AccordionDetails, Divider } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material"
-import { addProductToCart } from "../Redux/Cart/cart.actions";
+import { addProductToCart, updateTotalPrice } from "../Redux/Cart/cart.actions";
 import { useDispatch } from "react-redux";
 
 
@@ -30,6 +30,7 @@ export default function SmoothieDetails(){
         console.log('Adding Item...')
         if(!smoothie || size === 'Pick Your Size') return
         dispatch(addProductToCart({...product, size, price}))
+        dispatch(updateTotalPrice())
     }
 
     useEffect(() => {

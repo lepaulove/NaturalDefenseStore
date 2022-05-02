@@ -26,7 +26,7 @@ export default function ProductView(props){
     }
 
     return(
-    <Grid item md={3} xs={6} sx={{ }} >
+    <Grid item md={4} xs={6} sx={{ }} >
         <Card sx={{ maxWidth: 345, minHeight: 454, pb:2, pl:2}}>
             <CardActionArea onClick={() => {
             // console.log(smoothie)

@@ -13,7 +13,8 @@ const FormControlWrapper = props => {
                         value={props.value} 
                         onChange={props.handleChange} 
                         label={props.hint}
-                        inputRef={props.clear}/>
+                        inputRef={props.clear}
+                        name={props.name}/>
             {/* <FormHelperText id="my-helper-text">
                 We'll never share your email.
             </FormHelperText> */}

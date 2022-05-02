@@ -21,6 +21,7 @@ import WithAdminAuth from './HigherOrderComponents/withAdminAuth';
 import AdminToolbar from './Components/AdminToolbar';
 import SmoothieDetails from './pages/SmoothieDetails';
 import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
 
 const App = props => {
 
@@ -43,6 +44,7 @@ const App = props => {
             <Banner />
             <ResponsiveAppBar currentUser={currentUser} />
             <Routes>
+              <Route exact path='/checkout' element={<Checkout/>}/>
               <Route exact path='/cart' element={<Cart/>}/>
               <Route exact path='/naturaldefensestore' element={<Section currentUser={currentUser}/>} />
               <Route exact path='/atomy' element={<Atomy currentUser={currentUser}/>}/>
