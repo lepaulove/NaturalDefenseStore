@@ -6,30 +6,18 @@ const stripe = require('stripe')('sk_test_51KthS7EHpfadNorKmNKi93Mx8vbJpMb1aepiW
 const app = express();
 
 app.use(cors({
-    origin:'http://localhost:3000', 
+    origin:['http://localhost:3000', 'https://lepaulove.github.io'],
     optionSuccessStatus:200
 }));
 
 app.use(express.json());
-
-// app.post('/payments/create', async (req, res) => {
-//     try{
-//         const {amount} = req.body;
-//         const paymentIntent = await stripe.paymentIntent.create()
-//     }catch(err){
-//         res.status(500).json({
-//             statusCode: 500,
-//             message: err.message
-//         });
-//     }
-// });
 
 app.post('/payments', async (req, res) => {
     const { lineItems } = req.body
     const session = await stripe.checkout.sessions.create({
       line_items: lineItems,
       mode: 'payment',
-      success_url: 'http://localhost:3000/NaturalDefenseStore',
+      success_url: 'http://lepaulove.github.io/NaturalDefenseStore',
       cancel_url: 'https://facebook.com',
     });
   
